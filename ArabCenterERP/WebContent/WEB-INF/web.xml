@@ -7,7 +7,7 @@
   
   <display-name>ArabCenterERP</display-name>
   <welcome-file-list>
-    <welcome-file>pages/public/index.xhtml</welcome-file>
+    <welcome-file>pages/ar/public/index.xhtml</welcome-file>
   </welcome-file-list>
   <listener>
     <listener-class>

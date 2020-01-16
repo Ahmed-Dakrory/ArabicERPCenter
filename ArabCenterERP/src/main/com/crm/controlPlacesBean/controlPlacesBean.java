@@ -58,7 +58,7 @@ public class controlPlacesBean implements Serializable{
 		selectedPlace=userDataFacede.getById(placeId);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/controlPlaces/account/placeDetails.jsf");
+			   .getExternalContext().redirect("/pages/ar/secured/admin/controlPlaces/account/placeDetails.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class controlPlacesBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance().getExternalContext()
-			.redirect("/pages/secured/admin/controlPlaces/account/place.jsf");
+			.redirect("/pages/ar/secured/admin/controlPlaces/account/place.jsf");
 
 			
 		} catch (IOException e) {
@@ -93,7 +93,7 @@ public class controlPlacesBean implements Serializable{
 			
 			try {
 				FacesContext.getCurrentInstance().getExternalContext()
-				.redirect("/pages/secured/admin/controlPlaces/account/place.jsf");
+				.redirect("/pages/ar/secured/admin/controlPlaces/account/place.jsf");
 
 				
 			} catch (IOException e) {

@@ -16,22 +16,13 @@
     
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="/">On Fashion</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
+      
+      <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="/pages/public/about.jsf" class="nav-link">About</a></li>
-            
-            <li class="nav-item"><a href="/pages/public/contactUs.jsf" class="nav-link">Contact</a></li>
-            <li class="nav-item" style="#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'':'display:none;'}"><a href="/pages/secured/admin/home.jsf" class="nav-link">Dashboard</a></li>
             
             
           <li class="d-none d-lg-block d-xl-block m-nav__item m-topbar__user-profile m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" aria-expanded="true" >
-					        <h:form style="margin-left: 100px;">   
+					        <h:form >   
 						<a href="#" class="m-nav__link m-dropdown__toggle">
 							<span class="m-topbar__userpic">
 								<h:graphicImage value="#{loginBean.theUserOfThisAccount.getphoto()}" style="border-style: solid;border-color: #a5a1a1;border-width: 1px;border-radius: 50%;border-width: 1px;width:60px;height:60px;border-color: #c3abab;" class="m--img-rounded m--marginless m--img-centered" alt=""/>
@@ -99,7 +90,7 @@
 													</p:commandLink>
 											</li>
 											<li class="m-nav__item">
-													<a href="/pages/public/login.xhtml" style="width:91%" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Login</a>
+													<a href="/pages/ar/public/login.xhtml" style="width:91%" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Login</a>
 											</li>
 										</ul>
 									</div>
@@ -116,6 +107,22 @@
 	       		
           </ul>
         </div>
+        
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div id="ftco-nav" >
+          <ul class="navbar-nav ml-auto">
+            
+            <li class="nav-item"><a href="/pages/ar/public/contactUs.jsf" class="nav-link">اتصل بنا</a></li>
+            <li class="nav-item"><a href="/pages/ar/public/about.jsf" class="nav-link">عن المركز العربى</a></li>
+            <li class="nav-item" style="#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'':'display:none;'}"><a href="/pages/ar/secured/admin/home.jsf" class="nav-link">لوحة التحكم</a></li>
+	       	<li class="nav-item navbar-brand"><a href="/" style="   font-size: 22px;    font-family: Noto Kufi Arabic,Helvetica,Arial,sans-serif;" class="nav-link">المركز العربى للخدمات الالكترونية</a></li>	
+          </ul>
+        </div>
+      
       </div>
     </nav>
     <!-- END nav -->

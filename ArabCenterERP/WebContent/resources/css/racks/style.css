@@ -3306,7 +3306,6 @@ input[type="button"].btn-block {
   flex-basis: 100%;
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
-  flex-grow: 1;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center; }
@@ -7313,10 +7312,12 @@ h1, h2, h3, h4, h5,
     padding-bottom: .9rem;
     padding-left: 20px;
     padding-right: 20px;
-    color: #f0f0f0;
-    opacity: 1 !important; }
+    color: #310861;
+    opacity: 1 !important;
+    }
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
-      color: #fff; }
+      color: #c1b7b7;
+      }
   .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
     border: none;
     background: #fff;

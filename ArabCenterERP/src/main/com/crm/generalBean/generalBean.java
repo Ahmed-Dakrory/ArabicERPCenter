@@ -281,7 +281,7 @@ public class generalBean implements Serializable{
         options.put("contentWidth", "100%");
         options.put("contentHeight", "100%");
         options.put("background", "#00ffff00");
-	    PrimeFaces.current().dialog().openDynamic("/pages/secured/admin/general/userDetails", options, null);
+	    PrimeFaces.current().dialog().openDynamic("/pages/ar/secured/admin/general/userDetails", options, null);
 		
 	}
 
@@ -298,7 +298,7 @@ public class generalBean implements Serializable{
 	}
 	public void doSomethingAndCloseDialog1() {
 		
-		RequestContext.getCurrentInstance().closeDialog("/pages/secured/admin/general/userDetails");
+		RequestContext.getCurrentInstance().closeDialog("/pages/ar/secured/admin/general/userDetails");
     }
 	
 	public main.com.crm.loginNeeds.loginBean getLoginBean() {

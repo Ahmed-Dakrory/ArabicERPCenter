@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	
+	
+	
+	
+<h:head>
+  
+		<title>
+			<ui:insert name="title"> 
+			    on Shop  
+			</ui:insert>
+		</title>
+	
+		<link rel="icon" type="image/png" href="#{resource['images:logo.png']}"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet"/>
+
+    
+    <link rel="stylesheet" href="#{resource['css:racks/open-iconic-bootstrap.min.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/animate.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/owl.carousel.min.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/owl.theme.default.min.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/magnific-popup.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/aos.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/ionicons.min.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/bootstrap-datepicker.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/jquery.timepicker.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/flaticon.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/icomoon.css']}" />
+    <link rel="stylesheet" href="#{resource['css:racks/style.css']}" />
+    
+</h:head>
+
+
+
+
+
+
+<h:body> 
+<div align="center" id="header">
+    <ui:insert name="header">
+    	<ui:include src="header.xhtml"/> 
+    </ui:insert>
+</div>
+
+
+<div align="center" id="content">
+  
+  <ui:insert name="content"> 
+    	 <ui:include src="content.xhtml"/> 
+  </ui:insert>
+ </div>
+
+<div align="center" id="footer">
+  <ui:insert name="footer">
+    	<ui:include src="footer.xhtml"/>
+    	
+    	
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+    	
+  </ui:insert>
+</div>
+
+<!-- Make a conflict -->
+<!--   <h:outputScript name="js/racks/jquery.easing.1.3.js"/> -->
+
+
+<h:outputScript name="js/racks/jquery.min.js"/>
+  <h:outputScript name="js/racks/jquery-migrate-3.0.1.min.js"/>
+  <h:outputScript name="js/racks/popper.min.js"/>
+  <h:outputScript name="js/racks/bootstrap.min.js"/>
+  <h:outputScript name="js/racks/jquery.waypoints.min.js"/>
+  <h:outputScript name="js/racks/jquery.stellar.min.js"/>
+  <h:outputScript name="js/racks/owl.carousel.min.js"/>
+  <h:outputScript name="js/racks/jquery.magnific-popup.min.js"/>
+  <h:outputScript name="js/racks/aos.js"/>
+  <h:outputScript name="js/racks/jquery.animateNumber.min.js"/>
+  <h:outputScript name="js/racks/bootstrap-datepicker.js"/>
+  <h:outputScript name="js/racks/jquery.timepicker.min.js"/>
+  <h:outputScript name="js/racks/jquery.timepicker.min.js"/>
+  <h:outputScript name="js/racks/maps.js"/>
+  <h:outputScript name="js/racks/google-map.js"/>
+  <h:outputScript name="js/racks/main.js"/>
+</h:body>
+
+</html>

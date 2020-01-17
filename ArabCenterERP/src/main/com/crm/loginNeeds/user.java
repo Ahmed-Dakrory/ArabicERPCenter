@@ -6,10 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import org.apache.commons.codec.binary.Base64;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
@@ -33,8 +31,8 @@ import org.hibernate.annotations.NamedQuery;
 			)
 	
 	,
-	@NamedQuery(name="user.getByEmail",
-	query = "from user d where d.email = :email"
+	@NamedQuery(name="user.getByUsername",
+	query = "from user d where d.userName = :userName"
 			)
 	
 	,
@@ -43,8 +41,8 @@ import org.hibernate.annotations.NamedQuery;
 			)
 	
 	,
-	@NamedQuery(name="user.getByMailAndPassword",
-	query = "from user d where d.email = :email and d.password = :password and active = :active"
+	@NamedQuery(name="user.getByUsernameAndPassword",
+	query = "from user d where d.userName = :userName and d.password = :password and active = :active"
 			)
 	
 })
@@ -60,6 +58,10 @@ public class user {
 
 	@Column(name = "name")
 	private String name;
+	
+
+	@Column(name = "userName")
+	private String userName;
 	
 	
 	@Column(name = "email")
@@ -77,17 +79,16 @@ public class user {
 	private String address;
 
 	public static int ROLE_ADMIN=0;
-	public static int ROLE_SHAREHOLDER=1;
-	public static int ROLE_CUSTOMER=2;
-	public static int ROLE_PLACE=3;
+	public static int ROLE_GeneralManager=1;
+	public static int ROLE_MoneyManager=2;
+	public static int ROLE_Freelancer=3;
 
 	@Column(name = "role")
 	private Integer role;
 	
 	
 	@Column(name="image")
-	@Lob
-	private byte[] image;
+	private String image;
 
 
 	@Column(name = "active")
@@ -96,20 +97,12 @@ public class user {
 	
 	@Column(name = "lastUpdate")
 	private Calendar lastUpdate;
+	
+	@Column(name = "createdDate")
+	private Calendar createdDate;
 
 	
 
-	public Calendar getLastUpdate() {
-		return lastUpdate;
-	}
-
-
-
-
-
-	public void setLastUpdate(Calendar lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
 
 	public Integer getId() {
 		return id;
@@ -120,6 +113,21 @@ public class user {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+
+	
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
@@ -179,7 +187,6 @@ public class user {
 	}
 
 
-	
 
 
 	public String getAddress() {
@@ -210,14 +217,14 @@ public class user {
 
 
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
 
 
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
@@ -236,26 +243,48 @@ public class user {
 	}
 
 
+
+
+	public Calendar getLastUpdate() {
+		return lastUpdate;
+	}
+
+
+
+
+	public void setLastUpdate(Calendar lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+
+
+
+	public Calendar getCreatedDate() {
+		return createdDate;
+	}
+
+
+
+
+	public void setCreatedDate(Calendar createdDate) {
+		this.createdDate = createdDate;
+	}
+
+
+
+
 	public String getRoleString() {
 		if(role==ROLE_ADMIN) {
-			return "Admin";
-		}else if(role==ROLE_SHAREHOLDER) {
-			return "Shareholder";
-		}else if(role==ROLE_CUSTOMER) {
-			return "Customer";
+			return "حساب رئيسى";
+		}else if(role==ROLE_GeneralManager) {
+			return "مدير عام";
+		}else if(role==ROLE_Freelancer) {
+			return "مستقل";
 		}else {
-			return "Place";
+			return "مدير مالى";
 		}
 	}
 
-	public String getphoto() {
-		if(getImage()!=null) {
-		String imageString= new String(Base64.encodeBase64(image));
-
-		return "data:image/png;base64, "+imageString;
-		}else {
-			return "/resources/images/comment-img3.jpg";
-		}
-	}
+	
 
 }

@@ -43,22 +43,28 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		try {
 
-			user dao = userDataRepository.getByEmail(username);
+			user dao = userDataRepository.getByUserName(username);
+			System.out.println("AhmedDakrory: "+dao.getEmail());
 			UserDetails user;
-			if(dao.getRole()==main.com.crm.loginNeeds.user.ROLE_SHAREHOLDER) {
+			if(dao.getRole()==main.com.crm.loginNeeds.user.ROLE_MoneyManager) {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
-				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_SHAREHOLDER"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_MoneyManager"));
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}else if(dao.getRole()==main.com.crm.loginNeeds.user.ROLE_ADMIN) {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				user = new User(dao.getUserName(), dao.getPassword(), true,
+						true, true, true, studentAuthorities);
+			}else if(dao.getRole()==main.com.crm.loginNeeds.user.ROLE_GeneralManager) {
+				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
+				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_GeneralManager"));
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}else {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
-				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_USER"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_Freelancer"));
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}
 			return user;

@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/octopusTemplate.xhtml">
+<ui:composition template="/templates/main_templateAr.xhtml">
 
 	<ui:define name="title">المركز العربى للخدمات الالكترونية</ui:define>
 
@@ -20,21 +20,21 @@
 	 </style>
 		
 		
-			<div class="body-sign center-sign" style="    width: 150%;">
-				<a href="/" class="logo pull-left">
+
+				<div class="container-fluid container--small containerLogin" >
+				
+				<div class="main main-spacer-wide ">
+					<a href="/" class="logo pull-left">
 					<img src="#{resource['images:logo.png']}" height="54" alt="Porto Admin" />
 				</a>
-
-				<div class="panel panel-sign">
 					<div class="panel-title-sign mt-xl text-right">
-						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
+						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> تسجيل الدخول</h2>
 					</div>
-					<div class="panel-body">
-						<h:form prependId="false" id="login-form" action="https://phpoll.com/login/process" method="post" role="form" >
-							<div class="form-group mb-lg">
-								<label>Email</label>
+					<h:form prependId="false" id="login-form" action="https://phpoll.com/login/process" method="post" role="form" >
+							<div class="form-group ">
+								<label class="pull-right">اسم المستخدم</label>
 								<div class="input-group input-group-icon">
-									<p:inputText type="email" id="Mail" class="form-control input-lg" value="#{loginBean.emailOfUserLoggedIn}"/>
+									<p:inputText type="email" id="Mail" class="form-control input-lg" value="#{loginBean.userNameOfUserLoggedIn}"/>
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -43,9 +43,9 @@
 								</div>
 							</div>
 
-							<div class="form-group mb-lg">
+							<div class="form-group ">
 								<div class="clearfix">
-									<label class="pull-left">Password</label>
+									<label class="pull-right">كلمة المرور</label>
 									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group input-group-icon">
@@ -62,35 +62,24 @@
 								<div class="col-sm-8">
 									<div class="checkbox-custom checkbox-default">
 										<input id="RememberMe" name="rememberme" type="checkbox"/>
-										<label for="RememberMe">Remember Me</label>
+										<label for="RememberMe">تذكرنى</label>
 									</div>
 								</div>
 								<div class="col-sm-4 text-right">
-									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary hidden-xs">
+									<h:commandButton action="#{loginBean.login}" value="دخول" type="submit" class="btn btn-primary hidden-xs">
 									<f:ajax execute="@form" render="login-form" />
 									</h:commandButton>
-									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
+									<h:commandButton action="#{loginBean.login}" value="دخول" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
 									<f:ajax execute="@form" render="login-form" />
 									</h:commandButton>
 								</div>
 							</div>
 
-							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
-								<span>or</span>
-							</span>
-
 							
-							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>
-
 						</h:form>
-					</div>
+					
 				</div>
-
-				 <p class="text-center text-muted mt-md mb-md"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
- </p>
-			
-			</div>
+				</div>
 		
 		<!-- end: page -->
 	</ui:define>

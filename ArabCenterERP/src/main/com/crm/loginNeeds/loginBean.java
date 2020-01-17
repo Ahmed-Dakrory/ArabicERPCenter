@@ -2,14 +2,11 @@ package main.com.crm.loginNeeds;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
@@ -24,20 +21,17 @@ public class loginBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -6715784400190397743L;
-	private boolean isLoggedIn;
-	private String emailOfUserLoggedIn;
+	private boolean loggedIn;
+	private String userNameOfUserLoggedIn;
 	private String passwordOfUserLoggedIn;
 	private String passwordOfRegisteration;
-	private List<user> listOfUsers;
 	private user theUserOfThisAccount;
-	private int type;
 	
 
 	@ManagedProperty(value = "#{userFacadeImpl}")
 	private userAppServiceImpl userDataFacede; 
 	 
 
-	private Boolean rememberMe;
 	@ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationService authenticationService;
 	
@@ -45,59 +39,48 @@ public class loginBean implements Serializable{
 	private String passwordConfirm;
 	@PostConstruct
 	public void init() {
-		isLoggedIn=false;
+		loggedIn=false;
 		theUserOfThisAccount=new user();
-		//theUserOfThisAccount=userDataFacede.getByEmailAndPassword(emailOfUserLoggedIn, passwordOfUserLoggedIn);
-		listOfUsers=userDataFacede.getAll();
 		
 		
 	}
 	
 	public void refresh(){
-		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
-				.getCurrentInstance()
-				.getExternalContext()
-				.getRequest();
 		
-		try{
-			Integer id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
-				if(id!=null){
-					user user=getuserFacede().getById(id);
-					user.setActive(1);
-					getuserFacede().adduser(user);
-					
-				}
-			}
-		catch(Exception ex){
-			 
-		}
 	}
 	
-	public String logOut(){
+	public void logOut(){
 
-		emailOfUserLoggedIn="";
+		userNameOfUserLoggedIn="";
 		passwordOfUserLoggedIn="";
 		authenticationService.logout();
 		theUserOfThisAccount=new user();
-		isLoggedIn=false;
+		loggedIn=false;
 		System.out.println("");
-		return "/pages/ar/public/index.jsf?faces-redirect=true";
+		try {
+		
+			FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void login(){
 
-		 String hashedPassword= new  Md5PasswordEncoder().encodePassword(passwordOfUserLoggedIn,emailOfUserLoggedIn);
+		 String hashedPassword= new  Md5PasswordEncoder().encodePassword(passwordOfUserLoggedIn,userNameOfUserLoggedIn);
 
-		theUserOfThisAccount = userDataFacede.getByEmailAndPassword(emailOfUserLoggedIn,hashedPassword);
+		theUserOfThisAccount = userDataFacede.getByUserNameAndPassword(userNameOfUserLoggedIn,hashedPassword);
 
 		if(theUserOfThisAccount!=null){
-			isLoggedIn=true;
+			loggedIn=true;
 			
 		}else{
-			isLoggedIn=false;
+			loggedIn=false;
 			theUserOfThisAccount=new user();
 			wrongPassword();
 		}
-		if(isLoggedIn){
+		if(loggedIn){
 			
 
 			
@@ -109,15 +92,12 @@ public class loginBean implements Serializable{
 									
 
 			try {
-				if(theUserOfThisAccount.getRole()==user.ROLE_SHAREHOLDER) {
+				if(theUserOfThisAccount.getRole()==user.ROLE_ADMIN) {
 					FacesContext.getCurrentInstance()
-					   .getExternalContext().redirect("/pages/ar/secured/admin/home.jsf");
-				}else if(theUserOfThisAccount.getRole()==user.ROLE_ADMIN) {
-						FacesContext.getCurrentInstance()
-						   .getExternalContext().redirect("/pages/ar/secured/admin/home.jsf");
+					   .getExternalContext().redirect("/?faces-redirect=true");
 				}else {
 				FacesContext.getCurrentInstance()
-					   .getExternalContext().redirect("/");
+					   .getExternalContext().redirect("/?faces-redirect=true");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -127,7 +107,6 @@ public class loginBean implements Serializable{
 		}else{
 			
 
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("FormMain");
 		}
 		
 	}
@@ -191,41 +170,20 @@ public class loginBean implements Serializable{
 		
 	}
 
-	
-	public String getTheStatueOfLoginMenu(){
-		if(isLoggedIn){
-			return "inherit";
-		}
-		return "none";
-	}
-	
-	
-	
-	
-	
-	public String getTheStatueMenuMain(){
-		if(isLoggedIn){
-			return "none";
-		}
-		return "block";
-	}
-	
-	
-	
-	/*
-	 * the start of getting and setting method
-	 */
-	
-	
-	public String getEmailOfUserLoggedIn() {
-		return emailOfUserLoggedIn;
+	public boolean isLoggedIn() {
+		return loggedIn;
 	}
 
-	
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
 
-	
-	public void setEmailOfUserLoggedIn(String emailOfUserLoggedIn) {
-		this.emailOfUserLoggedIn = emailOfUserLoggedIn;
+	public String getUserNameOfUserLoggedIn() {
+		return userNameOfUserLoggedIn;
+	}
+
+	public void setUserNameOfUserLoggedIn(String userNameOfUserLoggedIn) {
+		this.userNameOfUserLoggedIn = userNameOfUserLoggedIn;
 	}
 
 	public String getPasswordOfUserLoggedIn() {
@@ -236,69 +194,28 @@ public class loginBean implements Serializable{
 		this.passwordOfUserLoggedIn = passwordOfUserLoggedIn;
 	}
 
-	public boolean isLoggedIn() {
-		return isLoggedIn;
-	}
-	
-	public void setLoggedIn(boolean isLoggedIn) {
-		this.isLoggedIn = isLoggedIn;
+	public String getPasswordOfRegisteration() {
+		return passwordOfRegisteration;
 	}
 
-
-	public List<user> getListOfUsers() {
-		return listOfUsers;
+	public void setPasswordOfRegisteration(String passwordOfRegisteration) {
+		this.passwordOfRegisteration = passwordOfRegisteration;
 	}
-
-
-	public void setListOfUsers(List<user> listOfUsers) {
-		this.listOfUsers = listOfUsers;
-	}
-
 
 	public user getTheUserOfThisAccount() {
 		return theUserOfThisAccount;
 	}
 
-
 	public void setTheUserOfThisAccount(user theUserOfThisAccount) {
 		this.theUserOfThisAccount = theUserOfThisAccount;
 	}
 
-
-	public int getType() {
-		return type;
-	}
-
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
-
-	public userAppServiceImpl getuserFacede() {
+	public userAppServiceImpl getUserDataFacede() {
 		return userDataFacede;
 	}
 
-
-	public void setuserFacede(userAppServiceImpl userDataFacede) {
+	public void setUserDataFacede(userAppServiceImpl userDataFacede) {
 		this.userDataFacede = userDataFacede;
-	}
-
-
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
-
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
-	}
-
-	public Boolean getRememberMe() {
-		return rememberMe;
-	}
-
-	public void setRememberMe(Boolean rememberMe) {
-		this.rememberMe = rememberMe;
 	}
 
 	public AuthenticationService getAuthenticationService() {
@@ -309,25 +226,20 @@ public class loginBean implements Serializable{
 		this.authenticationService = authenticationService;
 	}
 
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public String getPasswordOfRegisteration() {
-		return passwordOfRegisteration;
-	}
-
-	public void setPasswordOfRegisteration(String passwordOfRegisteration) {
-		this.passwordOfRegisteration = passwordOfRegisteration;
-	}
-
-	public userAppServiceImpl getUserDataFacede() {
-		return userDataFacede;
-	}
-	public void setUserDataFacede(userAppServiceImpl userDataFacede) {
-		this.userDataFacede = userDataFacede;
-	}
-
+	
+	
 
 	
 	

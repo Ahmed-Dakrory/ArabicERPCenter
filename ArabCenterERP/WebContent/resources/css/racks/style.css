@@ -2,6 +2,8 @@
 
 @charset "UTF-8";
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -10632,13 +10634,15 @@ table tbody tr.noresults {
   vertical-align: top; }
   .list-tags > li {
     padding-right: 0;
-    margin-bottom: .5em; }
+    margin-bottom: .5em;
+    }
     .list-tags > li > a,
     .list-tags > li > .tag {
       color: white;
       display: inline-block;
       border-radius: 2px;
-      padding: .25em .5em; }
+      padding: .25em .5em;
+      }
 
 .list-grid {
   margin-right: 0;
@@ -13718,7 +13722,8 @@ tbody {
   color: #607d8b; }
 
 .bg-bluecurious {
-  background-color: #f3f3f3; }
+  background-color: #405363;
+  }
 
 .bg-bluesea {
   background-color: #2A80B9; }

@@ -17,20 +17,25 @@ if(window.pageYOffset>100){
 
 
 $(function(){
-            $("#menu-toggle").click(function(e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("erpSystem-sidebar-active");
-            });
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("erpSystem-sidebar-active");
+    });
 
-            $(window).resize(function(e) {
-              if($(window).width()>=768){
-                $("#wrapper").removeClass("erpSystem-sidebar-active");
-              }else{
-                $("#wrapper").addClass("erpSystem-sidebar-active");
-              }
-            });
-          });
-        
+    $(window).resize(function(e) {
+      if($(window).width()>=768){
+        $("#wrapper").removeClass("erpSystem-sidebar-active");
+      }else{
+        $("#wrapper").addClass("erpSystem-sidebar-active");
+      }
+    });
+  });
+
+
+
+$('.erpSystem-sidebar-menu-item').click(function(evt){
+	  $(this).toggleClass("erpSystem--active");
+	});
         
         $(function(){
             $("#imageButton").click(function(e) {

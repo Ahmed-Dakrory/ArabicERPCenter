@@ -75,8 +75,6 @@ public class user {
 	@Column(name = "phone")
 	private String phone;
 	
-	@Column(name = "address")
-	private String address;
 
 	public static int ROLE_ADMIN=0;
 	public static int ROLE_GeneralManager=1;
@@ -89,6 +87,54 @@ public class user {
 	
 	@Column(name="image")
 	private String image;
+
+	@Column(name="city")
+	private String city;
+	
+
+	@Column(name="about")
+	private String about;
+	
+
+	@Column(name="otherPaymentMethods")
+	private String otherPaymentMethods;
+	
+
+	@Column(name="workSampleLink")
+	private String workSampleLink;
+	
+	
+
+	@Column(name="workRegLink")
+	private String workRegLink;
+	
+	
+
+	@Column(name="moneyreportLink")
+	private String moneyreportLink;
+	
+	
+
+	@Column(name="whatsupLink")
+	private String whatsupLink;
+	
+
+	@Column(name="facebookLink")
+	private String facebookLink;
+	
+
+	@Column(name="vodafoneCashLink")
+	private String vodafoneCashLink;
+	
+	
+
+	@Column(name="postalCodeName")
+	private String postalCodeName;
+	
+
+	@Column(name="nationalId")
+	private String nationalId;
+	
 
 
 	@Column(name = "active")
@@ -189,16 +235,6 @@ public class user {
 
 
 
-	public String getAddress() {
-		return address;
-	}
-
-
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 
 
@@ -268,6 +304,162 @@ public class user {
 
 	public void setCreatedDate(Calendar createdDate) {
 		this.createdDate = createdDate;
+	}
+
+
+	
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+
+
+	public String getAbout() {
+		return about;
+	}
+
+
+
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+
+
+
+	public String getWorkSampleLink() {
+		return workSampleLink;
+	}
+
+
+
+
+	public void setWorkSampleLink(String workSampleLink) {
+		this.workSampleLink = workSampleLink;
+	}
+
+
+
+
+	public String getWorkRegLink() {
+		return workRegLink;
+	}
+
+
+
+
+	public void setWorkRegLink(String workRegLink) {
+		this.workRegLink = workRegLink;
+	}
+
+
+
+
+	public String getMoneyreportLink() {
+		return moneyreportLink;
+	}
+
+
+
+
+	public void setMoneyreportLink(String moneyreportLink) {
+		this.moneyreportLink = moneyreportLink;
+	}
+
+
+
+
+	public String getWhatsupLink() {
+		return whatsupLink;
+	}
+
+
+
+
+	public void setWhatsupLink(String whatsupLink) {
+		this.whatsupLink = whatsupLink;
+	}
+
+
+
+
+	public String getFacebookLink() {
+		return facebookLink;
+	}
+
+
+
+
+	public void setFacebookLink(String facebookLink) {
+		this.facebookLink = facebookLink;
+	}
+
+
+
+
+	public String getVodafoneCashLink() {
+		return vodafoneCashLink;
+	}
+
+
+
+
+	public void setVodafoneCashLink(String vodafoneCashLink) {
+		this.vodafoneCashLink = vodafoneCashLink;
+	}
+
+
+
+
+	public String getPostalCodeName() {
+		return postalCodeName;
+	}
+
+
+
+
+	public void setPostalCodeName(String postalCodeName) {
+		this.postalCodeName = postalCodeName;
+	}
+
+
+
+	
+
+	public String getOtherPaymentMethods() {
+		return otherPaymentMethods;
+	}
+
+
+
+
+	public void setOtherPaymentMethods(String otherPaymentMethods) {
+		this.otherPaymentMethods = otherPaymentMethods;
+	}
+
+
+
+
+	public String getNationalId() {
+		return nationalId;
+	}
+
+
+
+
+	public void setNationalId(String nationalId) {
+		this.nationalId = nationalId;
 	}
 
 

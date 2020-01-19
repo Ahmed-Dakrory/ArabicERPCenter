@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main_templateAr.xhtml">
+
+	<ui:define name="title">Shop Registeration</ui:define>
+
+	<ui:define name="content">
+	
+    <link rel="stylesheet" href="#{resource['css:racks/style2.css']}" />
+	
+	<div class="container-fluid container--small">
+	
+	
+	<div class="main main-spacer-wide">
+	
+		<style type="text/css">
+    .ui-datalist .ui-datalist-content {
+        border:0 none
+    }
+ 
+    .ui-datalist ul {
+        padding: 0px 10px 0 20px;
+        margin: 5px 0;
+    }
+ 
+    .value {
+        font-weight: bold;
+    }
+ 
+    .ui-autocomplete-itemtip {
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+    
+    .ui-autocomplete-input-token input {
+   direction:ltr;
+}
+.ui-autocomplete {
+    width: 100%;
+}
+
+.ui-autocomplete-multiple-container.ui-inputfield {
+    width: 100%;
+}
+
+.iconSize{
+font-size: 25px;
+}
+
+.backGroundStyleNavMain{
+    background: #718892;
+    color: aliceblue;
+    font-size: 13px;
+}
+.styleBack{
+background: #dee2e6;
+}
+.navitemLinkExt{
+    color: #524e4e!important;
+    border-right-color: #8d8e8c!important;
+    border-left-color: #8d8e8c!important;
+    border-top-color: #8d8e8c!important;
+}
+.conatinerForNav{
+
+    padding: 2px;
+    background: #babec138;
+    margin-top: 2%;
+
+}
+</style>
+		<h2>قائمة المستقلين:</h2>
+		#{admin_freelancerBean.fetchlistOfAllUserOfGateg()}
+		<h:form >
+    
+    
+    
+    
+    <div class="accordion" id="accordionExample">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  
+  <li class="nav-item ">
+    <a class="nav-link active" id="cont-tab2" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">جميع المستقلين ( #{admin_freelancerBean.listOfAllUser.size()} ) </a>
+  </li>
+  
+  <li class="nav-item ">
+    <a class="nav-link" id="cont-tab#{admin_freelancerBean.listOfAllGateg.get(0).id}" data-toggle="tab" href="#tab-id#{admin_freelancerBean.listOfAllGateg.get(0).id}" role="tab" aria-controls="tab-id#{admin_freelancerBean.listOfAllGateg.get(0).id}" aria-selected="true">#{admin_freelancerBean.listOfAllGateg.get(0).field} ( #{admin_freelancerBean.listOfAllUserOfGateg1.size()} ) </a>
+  </li>
+  
+   <li class="nav-item ">
+    <a class="nav-link" id="cont-tab#{admin_freelancerBean.listOfAllGateg.get(1).id}" data-toggle="tab" href="#tab-id#{admin_freelancerBean.listOfAllGateg.get(1).id}" role="tab" aria-controls="tab-id#{admin_freelancerBean.listOfAllGateg.get(1).id}" aria-selected="true">#{admin_freelancerBean.listOfAllGateg.get(1).field} ( #{admin_freelancerBean.listOfAllUserOfGateg2.size()} )</a>
+  </li>
+  
+   <li class="nav-item ">
+    <a class="nav-link" id="cont-tab#{admin_freelancerBean.listOfAllGateg.get(2).id}" data-toggle="tab" href="#tab-id#{admin_freelancerBean.listOfAllGateg.get(2).id}" role="tab" aria-controls="tab-id#{admin_freelancerBean.listOfAllGateg.get(2).id}" aria-selected="true">#{admin_freelancerBean.listOfAllGateg.get(2).field} ( #{admin_freelancerBean.listOfAllUserOfGateg3.size()} )</a>
+  </li>
+  
+   <li class="nav-item ">
+    <a class="nav-link" id="cont-tab#{admin_freelancerBean.listOfAllGateg.get(3).id}" data-toggle="tab" href="#tab-id#{admin_freelancerBean.listOfAllGateg.get(3).id}" role="tab" aria-controls="tab-id#{admin_freelancerBean.listOfAllGateg.get(3).id}" aria-selected="true">#{admin_freelancerBean.listOfAllGateg.get(3).field} ( #{admin_freelancerBean.listOfAllUserOfGateg4.size()} )</a>
+  </li>
+  
+   <li class="nav-item ">
+    <a class="nav-link" id="cont-tab#{admin_freelancerBean.listOfAllGateg.get(4).id}" data-toggle="tab" href="#tab-id#{admin_freelancerBean.listOfAllGateg.get(4).id}" role="tab" aria-controls="tab-id#{admin_freelancerBean.listOfAllGateg.get(4).id}" aria-selected="true">#{admin_freelancerBean.listOfAllGateg.get(4).field} ( #{admin_freelancerBean.listOfAllUserOfGateg5.size()} )</a>
+  </li>
+  
+   <li class="nav-item ">
+    <a class="nav-link" id="cont-tab#{admin_freelancerBean.listOfAllGateg.get(5).id}" data-toggle="tab" href="#tab-id#{admin_freelancerBean.listOfAllGateg.get(5).id}" role="tab" aria-controls="tab-id#{admin_freelancerBean.listOfAllGateg.get(5).id}" aria-selected="true">#{admin_freelancerBean.listOfAllGateg.get(5).field} ( #{admin_freelancerBean.listOfAllUserOfGateg6.size()} )</a>
+  </li>
+  
+   <li class="nav-item ">
+    <a class="nav-link" id="cont-tab#{admin_freelancerBean.listOfAllGateg.get(6).id}" data-toggle="tab" href="#tab-id#{admin_freelancerBean.listOfAllGateg.get(6).id}" role="tab" aria-controls="tab-id#{admin_freelancerBean.listOfAllGateg.get(6).id}" aria-selected="true">#{admin_freelancerBean.listOfAllGateg.get(6).field} ( #{admin_freelancerBean.listOfAllUserOfGateg7.size()} )</a>
+  </li>
+  
+</ul>
+
+<div class="tab-content styleBack" id="myTabContent">
+
+  
+  <div class="tab-pane fade show active" id="tab2" role="tabpanel" aria-labelledby="cont-tab2">
+	<p>erit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+  </div>
+ <div class="tab-pane fade" id="tab-id#{admin_freelancerBean.listOfAllGateg.get(0).id}" role="tabpanel" aria-labelledby="cont-tab#{admin_freelancerBean.listOfAllGateg.get(0).id}">
+	
+<ul  class="nav nav-tabs" id="myTab1" role="tablist">
+<ui:repeat var="exFieldOfCateg" varStatus="statues" value="#{admin_freelancerBean.listOfAllFieldRelatedToGateg1.exfieldUsers}">
+ <li class="nav-item ">
+    <a class="nav-link navitemLinkExt" id="idNavLinkExt_field#{statues.index}" data-toggle="pill" href="#pills-#{statues.index}" role="tab" aria-controls="pills-#{statues.index}" aria-selected="false">( #{admin_freelancerBean.listOfAllFieldRelatedToGateg1.exfieldUsers.get(statues.index).users.size()} ) #{admin_freelancerBean.listOfAllFieldRelatedToGateg1.exfieldUsers.get(statues.index).field_Ex.field}</a>
+  </li>
+</ui:repeat>
+</ul>
+	
+	<div class="conatinerForNav">
+	<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          القائمة الجديدة
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          القائمة الساخنة
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          القائمة الباردة
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header" id="headingFour">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          الأرشيف
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	
+  </div>
+  
+  
+  
+  <div class="tab-pane fade" id="tab-id#{admin_freelancerBean.listOfAllGateg.get(1).id}" role="tabpanel" aria-labelledby="cont-tab#{admin_freelancerBean.listOfAllGateg.get(1).id}">
+	<p>cont-#{admin_freelancerBean.listOfAllGateg.get(1).id}</p>
+  </div>
+  <div class="tab-pane fade" id="tab-id#{admin_freelancerBean.listOfAllGateg.get(2).id}" role="tabpanel" aria-labelledby="cont-tab#{admin_freelancerBean.listOfAllGateg.get(2).id}">
+	<p>cont-#{admin_freelancerBean.listOfAllGateg.get(2).id}</p>
+  </div>
+  <div class="tab-pane fade " id="tab-id#{admin_freelancerBean.listOfAllGateg.get(3).id}" role="tabpanel" aria-labelledby="cont-tab#{admin_freelancerBean.listOfAllGateg.get(3).id}">
+	<p>cont-#{admin_freelancerBean.listOfAllGateg.get(3).id}</p>
+  </div>
+  <div class="tab-pane fade" id="tab-id#{admin_freelancerBean.listOfAllGateg.get(4).id}" role="tabpanel" aria-labelledby="cont-tab#{admin_freelancerBean.listOfAllGateg.get(4).id}">
+	<p>cont-#{admin_freelancerBean.listOfAllGateg.get(4).id}</p>
+  </div>
+  <div class="tab-pane fade" id="tab-id#{admin_freelancerBean.listOfAllGateg.get(5).id}" role="tabpanel" aria-labelledby="cont-tab#{admin_freelancerBean.listOfAllGateg.get(5).id}">
+	<p>cont-#{admin_freelancerBean.listOfAllGateg.get(5).id}</p>
+  </div>
+  <div class="tab-pane fade" id="tab-id#{admin_freelancerBean.listOfAllGateg.get(6).id}" role="tabpanel" aria-labelledby="cont-tab#{admin_freelancerBean.listOfAllGateg.get(6).id}">
+	<p>cont-#{admin_freelancerBean.listOfAllGateg.get(6).id}</p>
+  </div>
+</div>
+</div>
+
+
+		
+
+
+
+
+
+
+
+
+
+<br></br>
+
+<div class="col-md-4 col-xs-12">
+<p:commandButton value="حفظ التعديلات" actionListener="#{admin_freelancerBean.addNewFreelancer()}" class="btn btn-ghost btn-primary btn-block"/>
+</div>
+
+
+
+
+		</h:form>
+		
+		</div>
+	
+	</div>
+	
+	</ui:define>
+	
+	
+</ui:composition>
+</html>

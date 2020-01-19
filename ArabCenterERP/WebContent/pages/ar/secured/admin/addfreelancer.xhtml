@@ -50,43 +50,56 @@
 .ui-autocomplete-multiple-container.ui-inputfield {
     width: 100%;
 }
+
+.iconSize{
+font-size: 25px;
+}
 </style>
+		<h2>اضافة مستقل:</h2>
 		
+		#{admin_freelancerBean.refresh()}
 		<h:form >
     
     
     
     
-    
-    
-   
+    <div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         <h2>مجالات عمل المستقل:</h2>
+        </button>
+      </h2>
+    </div>
 
-
-
-<h2>مجالات عمل المستقل:</h2>
-<div>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+      <div>
 <div class="panel panel-default mrg--bm " id="user_skills-panel">
 
     <div class="heada  clearfix">
+        <div class="pull-right pdn--at">
+            <button class="btn btn-collapse btn-sm" type="button" data-toggle="collapse" data-target="#user_skills" aria-expanded="false" aria-controls="collapseExample">
+		     <span class="fa fa-fw icon   fa fa-caret-left "></span>
+		  </button>
+  			</div>
         <h4 class="heada__title pull-right">
                             مهاراتي
            
         </h4>
-        <div class="pull-left pdn--at">
-            <button class="btn btn-collapse btn-sm" type="button" data-toggle="collapse" data-target="#user_skills" aria-expanded="false" aria-controls="collapseExample">
-		     <span class="fa fa-fw icon   fa-chevron-up "></span>
-		  </button>
-  			</div>
+        
     </div>
 
 
 
     <div class="carda__body collapse  show  list-group" id="user_skills">
-        <p:autoComplete id="tagsSkills" multiple="true" value="#{admin_freelancerBean.selectedSkills}" completeMethod="#{admin_freelancerBean.completeTagSkills}"
-                        var="varData" itemLabel="#{varData}" itemValue="#{varData}"  forceSelection="true">
-            
+        <p:autoComplete id="tagsSkills" multiple="true" value="#{admin_freelancerBean.selectedSkills}" completeMethod="#{admin_freelancerBean.completeSkills}"
+                        var="var" itemLabel="#{var.field}" itemValue="#{var}"  converter="#{workFieldConverter}"  forceSelection="true">
+             <p:ajax event="itemSelect" />
+            <p:ajax event="itemUnselect" />
             <p:column>
-                <h:outputText value="#{varData}" />
+                <h:outputText value="#{var.field}" />
             </p:column>
         </p:autoComplete>
     
@@ -98,34 +111,48 @@
 <div class="panel panel-default mrg--bm " id="user_skills-panel">
 
     <div class="heada  clearfix">
-        <h4 class="heada__title pull-right">
+        
+        <div class="pull-right pdn--at">
+            <button class="btn btn-collapse btn-sm" type="button" data-toggle="collapse" data-target="#user_Exskills" aria-expanded="false" aria-controls="collapseExample">
+		     <span class="fa fa-fw icon   fa fa-caret-left "></span>
+		  </button>
+  			</div>
+  			<h4 class="heada__title pull-right">
                             المجالات الفرعية
            
         </h4>
-        <div class="pull-left pdn--at">
-            <button class="btn btn-collapse btn-sm" type="button" data-toggle="collapse" data-target="#user_Exskills" aria-expanded="false" aria-controls="collapseExample">
-		     <span class="fa fa-fw icon   fa-chevron-up "></span>
-		  </button>
-  			</div>
     </div>
 
     <div class="carda__body collapse  show  list-group" id="user_Exskills">
-        <p:autoComplete id="tagsExSkills" multiple="true" value="#{admin_freelancerBean.selectedEx_Skills}" completeMethod="#{admin_freelancerBean.completeTagExSkills}"
-                        var="varData" itemLabel="#{varData}" itemValue="#{varData}"  forceSelection="true">
-            
+        <p:autoComplete id="tagsExSkills" multiple="true" value="#{admin_freelancerBean.selectedEx_Skills}" completeMethod="#{admin_freelancerBean.completeExSkills}"
+                        var="varData" itemLabel="#{varData.field}" itemValue="#{varData}" converter="#{workFieldConverter}" forceSelection="true">
+            <p:ajax event="itemSelect" />
+            <p:ajax event="itemUnselect" />
             <p:column>
-                <h:outputText value="#{varData}" />
+                <h:outputText value="#{varData.field}" />
             </p:column>
         </p:autoComplete>
     
     </div>
 </div>
 </div>
-
-<h2>بيانات المستقل:</h2>
+	  </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h2>بيانات المستقل:</h2>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+      
 <div class="row">
 
-		<div class="col-xs-12">
+		<div class="col-sm-6 col-xs-12">
 		<div class="form-group  ">
 		<label>
 		<!-- react-text: 47 -->اليوزر نيم<!-- /react-text -->
@@ -133,10 +160,12 @@
 		<em class="text--danger">*</em>
 		
 		</label>
-		<p:inputText required="true" type="text" class="form-control" placeholder="برجاء كتابة يوزر نيم لا يكون مسجل" name="userName" value="احمد"/>
+		<p:inputText required="true" type="text" class="form-control" placeholder="برجاء كتابة يوزر نيم لا يكون مسجل" name="userName" value="#{admin_freelancerBean.selectedFreelancer.userName}"/>
 		</div>
 
 		</div>
+		
+		
 		
 		</div>
 
@@ -150,24 +179,12 @@
 		<em class="text--danger">*</em>
 		
 		</label>
-		<p:inputText type="text" class="form-control" placeholder="أكتب اسمك باللغة العربية" name="first_name" value="احمد"/>
+		<p:inputText required="true"  type="text" class="form-control" placeholder="أكتب اسمك باللغة العربية" name="first_name" value="#{admin_freelancerBean.selectedFreelancer.name}"/>
 		</div>
 
 		</div>
 
-		<div class="col-sm-6 col-xs-12">
-		
 
-<div class="form-group  ">
-		<label>
-		رقم الجوال
-		<em class="text--danger">*</em>
-		
-		</label>
-		<p:inputText type="text" class="form-control" placeholder="برجاء كتابة رقم الجوال الخاص بك" name="phoneNumber" value="01061690939"/>
-		
-</div>
-</div>
 <div class="col-sm-6 col-xs-12">
 		
 		<div class="form-group">
@@ -180,315 +197,544 @@
 		</label>
 		
 		<div >
-		<select name="country" class="c-select" >
-		<option value="JO">الأردن</option>
-<option value="AE">الإمارات</option>
-<option value="BH">البحرين</option>
-<option value="DZ">الجزائر</option>
-<option value="SA">السعودية</option>
-<option value="SD">السودان</option>
-<option value="SO">الصومال</option>
-<option value="IQ">العراق</option>
-<option value="KW">الكويت</option>
-<option value="MA">المغرب</option>
-<option value="YE">اليمن</option>
-<option value="TN">تونس</option>
-<option value="KM">جزر القمر</option>
-<option value="DJ">جيبوتي</option>
-<option value="SY">سوريا</option>
-<option value="OM">عُمان</option>
-<option value="PS">فلسطين</option>
-<option value="IL">فلسطين المحتلة</option>
-<option value="QA">قطر</option>
-<option value="LB">لبنان</option>
-<option value="LY">ليبيا</option>
-<option value="EG">مصر</option>
-<option value="MR">موريتانيا</option>
-<option value="AZ">أذربيجان</option>
-<option value="AM">أرمينيا</option>
-<option value="AU">أستراليا</option>
-<option value="EE">أستونيا</option>
-<option value="AF">أفغانستان</option>
-<option value="AL">ألبانيا</option>
-<option value="DE">ألمانيا</option>
-<option value="AQ">أنتاركتيكا</option>
-<option value="AG">أنتيغوا وبربودا</option>
-<option value="AD">أندورا</option>
-<option value="ID">أندونيسيا</option>
-<option value="AO">أنغولا</option>
-<option value="AI">أنغويلا</option>
-<option value="UY">أورغواي</option>
-<option value="UZ">أوزبكستان</option>
-<option value="UG">أوغندا</option>
-<option value="UA">أوكرانيا</option>
-<option value="IE">أيرلندا</option>
-<option value="IS">أيسلندا</option>
-<option value="ET">إثيوبيا</option>
-<option value="ES">إسبانيا</option>
-<option value="IR">إيران</option>
-<option value="IT">إيطاليا</option>
-<option value="AR">الأرجنتين</option>
-<option value="IO">الإقليم البريطاني في المحيط الهندي</option>
-<option value="EC">الإكوادور</option>
-<option value="BS">الباهاما</option>
-<option value="BR">البرازيل</option>
-<option value="PT">البرتغال</option>
-<option value="BA">البوسنة والهرسك</option>
-<option value="GA">الجابون</option>
-<option value="ME">الجبل الأسود</option>
-<option value="DK">الدانمرك</option>
-<option value="CV">الرأس الأخضر</option>
-<option value="SV">السلفادور</option>
-<option value="SN">السنغال</option>
-<option value="SE">السويد</option>
-<option value="CN">الصين</option>
-<option value="VA">الفاتيكان</option>
-<option value="PH">الفلبين</option>
-<option value="CM">الكاميرون</option>
-<option value="CG">الكونغو - برازافيل</option>
-<option value="CD">الكونغو - كينشاسا</option>
-<option value="TF">المقاطعات الجنوبية الفرنسية</option>
-<option value="MX">المكسيك</option>
-<option value="GB">المملكة المتحدة</option>
-<option value="NO">النرويج</option>
-<option value="AT">النمسا</option>
-<option value="NE">النيجر</option>
-<option value="IN">الهند</option>
-<option value="US">الولايات المتحدة</option>
-<option value="JP">اليابان</option>
-<option value="GR">اليونان</option>
-<option value="PG">بابوا غينيا الجديدة</option>
-<option value="PY">باراغواي</option>
-<option value="PK">باكستان</option>
-<option value="PW">بالاو</option>
-<option value="BW">بتسوانا</option>
-<option value="BB">بربادوس</option>
-<option value="BM">برمودا</option>
-<option value="BN">بروناي</option>
-<option value="BE">بلجيكا</option>
-<option value="BG">بلغاريا</option>
-<option value="BZ">بليز</option>
-<option value="BD">بنجلاديش</option>
-<option value="PA">بنما</option>
-<option value="BJ">بنين</option>
-<option value="BT">بوتان</option>
-<option value="PR">بورتوريكو</option>
-<option value="BF">بوركينا فاسو</option>
-<option value="BI">بوروندي</option>
-<option value="PL">بولندا</option>
-<option value="BO">بوليفيا</option>
-<option value="PF">بولينيزيا الفرنسية</option>
-<option value="PE">بيرو</option>
-<option value="TZ">تانزانيا</option>
-<option value="TH">تايلاند</option>
-<option value="TW">تايوان</option>
-<option value="TM">تركمانستان</option>
-<option value="TR">تركيا</option>
-<option value="TT">ترينيداد وتوباغو</option>
-<option value="TD">تشاد</option>
-<option value="TG">توجو</option>
-<option value="TV">توفالو</option>
-<option value="TK">توكيلو</option>
-<option value="TO">تونغا</option>
-<option value="TL">تيمور الشرقية</option>
-<option value="JM">جامايكا</option>
-<option value="GI">جبل طارق</option>
-<option value="AX">جزر آلاند</option>
-<option value="AN">جزر الأنتيل الهولندية</option>
-<option value="TC">جزر الترك وجايكوس</option>
-<option value="KY">جزر الكايمن</option>
-<option value="IC">جزر الكناري</option>
-<option value="MH">جزر المارشال</option>
-<option value="MV">جزر المالديف</option>
-<option value="PN">جزر بيتكيرن</option>
-<option value="SB">جزر سليمان</option>
-<option value="FO">جزر فارو</option>
-<option value="VI">جزر فرجين الأمريكية</option>
-<option value="VG">جزر فرجين البريطانية</option>
-<option value="FK">جزر فوكلاند</option>
-<option value="CK">جزر كوك</option>
-<option value="CC">جزر كوكوس</option>
-<option value="MP">جزر ماريانا الشمالية</option>
-<option value="WF">جزر والس وفوتونا</option>
-<option value="CX">جزيرة الكريسماس</option>
-<option value="BV">جزيرة بوفيه</option>
-<option value="IM">جزيرة مان</option>
-<option value="NF">جزيرة نورفوك</option>
-<option value="HM">جزيرة هيرد وجزر ماكدونالد</option>
-<option value="CF">جمهورية أفريقيا الوسطى</option>
-<option value="CZ">جمهورية التشيك</option>
-<option value="ZA">جنوب أفريقيا</option>
-<option value="SS">جنوب السودان</option>
-<option value="GP">جوادلوب</option>
-<option value="GE">جورجيا</option>
-<option value="GS">جورجيا الجنوبية وجزر ساندويتش الجنوبية</option>
-<option value="JE">جيرسي</option>
-<option value="DM">دومينيكا</option>
-<option value="RW">رواندا</option>
-<option value="RU">روسيا</option>
-<option value="BY">روسيا البيضاء</option>
-<option value="RO">رومانيا</option>
-<option value="RE">روينيون</option>
-<option value="ZM">زامبيا</option>
-<option value="ZW">زيمبابوي</option>
-<option value="CI">ساحل العاج</option>
-<option value="WS">ساموا</option>
-<option value="AS">ساموا الأمريكية</option>
-<option value="BL">سان بارتليمي</option>
-<option value="SM">سان مارينو</option>
-<option value="PM">سانت بيير وميكولون</option>
-<option value="VC">سانت فنسنت وغرنادين</option>
-<option value="KN">سانت كيتس ونيفيس</option>
-<option value="LC">سانت لوسيا</option>
-<option value="MF">سانت مارتن</option>
-<option value="SH">سانت هيلنا</option>
-<option value="ST">ساو تومي وبرينسيبي</option>
-<option value="LK">سريلانكا</option>
-<option value="SJ">سفالبارد وجان مايان</option>
-<option value="SK">سلوفاكيا</option>
-<option value="SI">سلوفينيا</option>
-<option value="SG">سنغافورة</option>
-<option value="SZ">سوازيلاند</option>
-<option value="SR">سورينام</option>
-<option value="CH">سويسرا</option>
-<option value="SL">سيراليون</option>
-<option value="SC">سيشل</option>
-<option value="SX">سينت مارتن</option>
-<option value="CL">شيلي</option>
-<option value="RS">صربيا</option>
-<option value="TJ">طاجكستان</option>
-<option value="GM">غامبيا</option>
-<option value="GH">غانا</option>
-<option value="GD">غرينادا</option>
-<option value="GL">غرينلاند</option>
-<option value="GT">غواتيمالا</option>
-<option value="GU">غوام</option>
-<option value="GF">غويانا الفرنسية</option>
-<option value="GY">غيانا</option>
-<option value="GG">غيرنزي</option>
-<option value="GN">غينيا</option>
-<option value="GQ">غينيا الإستوائية</option>
-<option value="GW">غينيا بيساو</option>
-<option value="VU">فانواتو</option>
-<option value="FR">فرنسا</option>
-<option value="VE">فنزويلا</option>
-<option value="FI">فنلندا</option>
-<option value="VN">فيتنام</option>
-<option value="FJ">فيجي</option>
-<option value="CY">قبرص</option>
-<option value="KG">قرغيزستان</option>
-<option value="KZ">كازاخستان</option>
-<option value="NC">كاليدونيا الجديدة</option>
-<option value="HR">كرواتيا</option>
-<option value="KH">كمبوديا</option>
-<option value="CA">كندا</option>
-<option value="CU">كوبا</option>
-<option value="CW">كوراساو</option>
-<option value="KR">كوريا الجنوبية</option>
-<option value="KP">كوريا الشمالية</option>
-<option value="CR">كوستاريكا</option>
-<option value="XK">كوسوفو</option>
-<option value="CO">كولومبيا</option>
-<option value="KI">كيريباتي</option>
-<option value="KE">كينيا</option>
-<option value="LV">لاتفيا</option>
-<option value="LA">لاوس</option>
-<option value="LU">لوكسمبورغ</option>
-<option value="LR">ليبيريا</option>
-<option value="LT">ليتوانيا</option>
-<option value="LI">ليختنشتاين</option>
-<option value="LS">ليسوتو</option>
-<option value="MQ">مارتينيك</option>
-<option value="MT">مالطا</option>
-<option value="ML">مالي</option>
-<option value="MY">ماليزيا</option>
-<option value="YT">مايوت</option>
-<option value="MG">مدغشقر</option>
-<option value="MK">مقدونيا</option>
-<option value="MO">مكاو الصينية</option>
-<option value="MW">ملاوي</option>
-<option value="MN">منغوليا</option>
-<option value="MU">موريشيوس</option>
-<option value="MZ">موزمبيق</option>
-<option value="MD">مولدافيا</option>
-<option value="MC">موناكو</option>
-<option value="MS">مونتسرات</option>
-<option value="MM">ميانمار -بورما</option>
-<option value="FM">ميكرونيزيا</option>
-<option value="NA">ناميبيا</option>
-<option value="NR">ناورو</option>
-<option value="NP">نيبال</option>
-<option value="NG">نيجيريا</option>
-<option value="NI">نيكاراغوا</option>
-<option value="NZ">نيوزيلاندا</option>
-<option value="NU">نيوي</option>
-<option value="HT">هايتي</option>
-<option value="HN">هندوراس</option>
-<option value="HU">هنغاريا</option>
-<option value="NL">هولندا</option>
-<option value="BQ">هولندا الكاريبية</option>
-<option value="HK">هونغ كونغ الصينية</option>
-</select>
+		 <h:selectOneMenu value="#{admin_freelancerBean.selectedFreelancer.city}" required="true"  name="country" class="c-select" >
+		<f:selectItem itemValue="JO"  itemLabel="الأردن" />
+<f:selectItem itemValue="AE"  itemLabel="الإمارات" />
+<f:selectItem itemValue="BH"  itemLabel="البحرين" />
+<f:selectItem itemValue="DZ"  itemLabel="الجزائر" />
+<f:selectItem itemValue="SA"  itemLabel="السعودية" />
+<f:selectItem itemValue="SD"  itemLabel="السودان" />
+<f:selectItem itemValue="SO"  itemLabel="الصومال" />
+<f:selectItem itemValue="IQ"  itemLabel="العراق" />
+<f:selectItem itemValue="KW"  itemLabel="الكويت" />
+<f:selectItem itemValue="MA"  itemLabel="المغرب" />
+<f:selectItem itemValue="YE"  itemLabel="اليمن" />
+<f:selectItem itemValue="TN"  itemLabel="تونس" />
+<f:selectItem itemValue="KM"  itemLabel="جزر القمر" />
+<f:selectItem itemValue="DJ"  itemLabel="جيبوتي" />
+<f:selectItem itemValue="SY"  itemLabel="سوريا" />
+<f:selectItem itemValue="OM"  itemLabel="عُمان" />
+<f:selectItem itemValue="PS"  itemLabel="فلسطين" />
+<f:selectItem itemValue="IL"  itemLabel="فلسطين المحتلة" />
+<f:selectItem itemValue="QA"  itemLabel="قطر" />
+<f:selectItem itemValue="LB"  itemLabel="لبنان" />
+<f:selectItem itemValue="LY"  itemLabel="ليبيا" />
+<f:selectItem itemValue="EG"  itemLabel="مصر" />
+<f:selectItem itemValue="MR"  itemLabel="موريتانيا" />
+<f:selectItem itemValue="AZ"  itemLabel="أذربيجان" />
+<f:selectItem itemValue="AM"  itemLabel="أرمينيا" />
+<f:selectItem itemValue="AU"  itemLabel="أستراليا" />
+<f:selectItem itemValue="EE"  itemLabel="أستونيا" />
+<f:selectItem itemValue="AF"  itemLabel="أفغانستان" />
+<f:selectItem itemValue="AL"  itemLabel="ألبانيا" />
+<f:selectItem itemValue="DE"  itemLabel="ألمانيا" />
+<f:selectItem itemValue="AQ"  itemLabel="أنتاركتيكا" />
+<f:selectItem itemValue="AG"  itemLabel="أنتيغوا وبربودا" />
+<f:selectItem itemValue="AD"  itemLabel="أندورا" />
+<f:selectItem itemValue="ID"  itemLabel="أندونيسيا" />
+<f:selectItem itemValue="AO"  itemLabel="أنغولا" />
+<f:selectItem itemValue="AI"  itemLabel="أنغويلا" />
+<f:selectItem itemValue="UY"  itemLabel="أورغواي" />
+<f:selectItem itemValue="UZ"  itemLabel="أوزبكستان" />
+<f:selectItem itemValue="UG"  itemLabel="أوغندا" />
+<f:selectItem itemValue="UA"  itemLabel="أوكرانيا" />
+<f:selectItem itemValue="IE"  itemLabel="أيرلندا" />
+<f:selectItem itemValue="IS"  itemLabel="أيسلندا" />
+<f:selectItem itemValue="ET"  itemLabel="إثيوبيا" />
+<f:selectItem itemValue="ES"  itemLabel="إسبانيا" />
+<f:selectItem itemValue="IR"  itemLabel="إيران" />
+<f:selectItem itemValue="IT"  itemLabel="إيطاليا" />
+<f:selectItem itemValue="AR"  itemLabel="الأرجنتين" />
+<f:selectItem itemValue="IO"  itemLabel="الإقليم البريطاني في المحيط الهندي" />
+<f:selectItem itemValue="EC"  itemLabel="الإكوادور" />
+<f:selectItem itemValue="BS"  itemLabel="الباهاما" />
+<f:selectItem itemValue="BR"  itemLabel="البرازيل" />
+<f:selectItem itemValue="PT"  itemLabel="البرتغال" />
+<f:selectItem itemValue="BA"  itemLabel="البوسنة والهرسك" />
+<f:selectItem itemValue="GA"  itemLabel="الجابون" />
+<f:selectItem itemValue="ME"  itemLabel="الجبل الأسود" />
+<f:selectItem itemValue="DK"  itemLabel="الدانمرك" />
+<f:selectItem itemValue="CV"  itemLabel="الرأس الأخضر" />
+<f:selectItem itemValue="SV"  itemLabel="السلفادور" />
+<f:selectItem itemValue="SN"  itemLabel="السنغال" />
+<f:selectItem itemValue="SE"  itemLabel="السويد" />
+<f:selectItem itemValue="CN"  itemLabel="الصين" />
+<f:selectItem itemValue="VA"  itemLabel="الفاتيكان" />
+<f:selectItem itemValue="PH"  itemLabel="الفلبين" />
+<f:selectItem itemValue="CM"  itemLabel="الكاميرون" />
+<f:selectItem itemValue="CG"  itemLabel="الكونغو - برازافيل" />
+<f:selectItem itemValue="CD"  itemLabel="الكونغو - كينشاسا" />
+<f:selectItem itemValue="TF"  itemLabel="المقاطعات الجنوبية الفرنسية" />
+<f:selectItem itemValue="MX"  itemLabel="المكسيك" />
+<f:selectItem itemValue="GB"  itemLabel="المملكة المتحدة" />
+<f:selectItem itemValue="NO"  itemLabel="النرويج" />
+<f:selectItem itemValue="AT"  itemLabel="النمسا" />
+<f:selectItem itemValue="NE"  itemLabel="النيجر" />
+<f:selectItem itemValue="IN"  itemLabel="الهند" />
+<f:selectItem itemValue="US"  itemLabel="الولايات المتحدة" />
+<f:selectItem itemValue="JP"  itemLabel="اليابان" />
+<f:selectItem itemValue="GR"  itemLabel="اليونان" />
+<f:selectItem itemValue="PG"  itemLabel="بابوا غينيا الجديدة" />
+<f:selectItem itemValue="PY"  itemLabel="باراغواي" />
+<f:selectItem itemValue="PK"  itemLabel="باكستان" />
+<f:selectItem itemValue="PW"  itemLabel="بالاو" />
+<f:selectItem itemValue="BW"  itemLabel="بتسوانا" />
+<f:selectItem itemValue="BB"  itemLabel="بربادوس" />
+<f:selectItem itemValue="BM"  itemLabel="برمودا" />
+<f:selectItem itemValue="BN"  itemLabel="بروناي" />
+<f:selectItem itemValue="BE"  itemLabel="بلجيكا" />
+<f:selectItem itemValue="BG"  itemLabel="بلغاريا" />
+<f:selectItem itemValue="BZ"  itemLabel="بليز" />
+<f:selectItem itemValue="BD"  itemLabel="بنجلاديش" />
+<f:selectItem itemValue="PA"  itemLabel="بنما" />
+<f:selectItem itemValue="BJ"  itemLabel="بنين" />
+<f:selectItem itemValue="BT"  itemLabel="بوتان" />
+<f:selectItem itemValue="PR"  itemLabel="بورتوريكو" />
+<f:selectItem itemValue="BF"  itemLabel="بوركينا فاسو" />
+<f:selectItem itemValue="BI"  itemLabel="بوروندي" />
+<f:selectItem itemValue="PL"  itemLabel="بولندا" />
+<f:selectItem itemValue="BO"  itemLabel="بوليفيا" />
+<f:selectItem itemValue="PF"  itemLabel="بولينيزيا الفرنسية" />
+<f:selectItem itemValue="PE"  itemLabel="بيرو" />
+<f:selectItem itemValue="TZ"  itemLabel="تانزانيا" />
+<f:selectItem itemValue="TH"  itemLabel="تايلاند" />
+<f:selectItem itemValue="TW"  itemLabel="تايوان" />
+<f:selectItem itemValue="TM"  itemLabel="تركمانستان" />
+<f:selectItem itemValue="TR"  itemLabel="تركيا" />
+<f:selectItem itemValue="TT"  itemLabel="ترينيداد وتوباغو" />
+<f:selectItem itemValue="TD"  itemLabel="تشاد" />
+<f:selectItem itemValue="TG"  itemLabel="توجو" />
+<f:selectItem itemValue="TV"  itemLabel="توفالو" />
+<f:selectItem itemValue="TK"  itemLabel="توكيلو" />
+<f:selectItem itemValue="TO"  itemLabel="تونغا" />
+<f:selectItem itemValue="TL"  itemLabel="تيمور الشرقية" />
+<f:selectItem itemValue="JM"  itemLabel="جامايكا" />
+<f:selectItem itemValue="GI"  itemLabel="جبل طارق" />
+<f:selectItem itemValue="AX"  itemLabel="جزر آلاند" />
+<f:selectItem itemValue="AN"  itemLabel="جزر الأنتيل الهولندية" />
+<f:selectItem itemValue="TC"  itemLabel="جزر الترك وجايكوس" />
+<f:selectItem itemValue="KY"  itemLabel="جزر الكايمن" />
+<f:selectItem itemValue="IC"  itemLabel="جزر الكناري" />
+<f:selectItem itemValue="MH"  itemLabel="جزر المارشال" />
+<f:selectItem itemValue="MV"  itemLabel="جزر المالديف" />
+<f:selectItem itemValue="PN"  itemLabel="جزر بيتكيرن" />
+<f:selectItem itemValue="SB"  itemLabel="جزر سليمان" />
+<f:selectItem itemValue="FO"  itemLabel="جزر فارو" />
+<f:selectItem itemValue="VI"  itemLabel="جزر فرجين الأمريكية" />
+<f:selectItem itemValue="VG"  itemLabel="جزر فرجين البريطانية" />
+<f:selectItem itemValue="FK"  itemLabel="جزر فوكلاند" />
+<f:selectItem itemValue="CK"  itemLabel="جزر كوك" />
+<f:selectItem itemValue="CC"  itemLabel="جزر كوكوس" />
+<f:selectItem itemValue="MP"  itemLabel="جزر ماريانا الشمالية" />
+<f:selectItem itemValue="WF"  itemLabel="جزر والس وفوتونا" />
+<f:selectItem itemValue="CX"  itemLabel="جزيرة الكريسماس" />
+<f:selectItem itemValue="BV"  itemLabel="جزيرة بوفيه" />
+<f:selectItem itemValue="IM"  itemLabel="جزيرة مان" />
+<f:selectItem itemValue="NF"  itemLabel="جزيرة نورفوك" />
+<f:selectItem itemValue="HM"  itemLabel="جزيرة هيرد وجزر ماكدونالد" />
+<f:selectItem itemValue="CF"  itemLabel="جمهورية أفريقيا الوسطى" />
+<f:selectItem itemValue="CZ"  itemLabel="جمهورية التشيك" />
+<f:selectItem itemValue="ZA"  itemLabel="جنوب أفريقيا" />
+<f:selectItem itemValue="SS"  itemLabel="جنوب السودان" />
+<f:selectItem itemValue="GP"  itemLabel="جوادلوب" />
+<f:selectItem itemValue="GE"  itemLabel="جورجيا" />
+<f:selectItem itemValue="GS"  itemLabel="جورجيا الجنوبية وجزر ساندويتش الجنوبية" />
+<f:selectItem itemValue="JE"  itemLabel="جيرسي" />
+<f:selectItem itemValue="DM"  itemLabel="دومينيكا" />
+<f:selectItem itemValue="RW"  itemLabel="رواندا" />
+<f:selectItem itemValue="RU"  itemLabel="روسيا" />
+<f:selectItem itemValue="BY"  itemLabel="روسيا البيضاء" />
+<f:selectItem itemValue="RO"  itemLabel="رومانيا" />
+<f:selectItem itemValue="RE"  itemLabel="روينيون" />
+<f:selectItem itemValue="ZM"  itemLabel="زامبيا" />
+<f:selectItem itemValue="ZW"  itemLabel="زيمبابوي" />
+<f:selectItem itemValue="CI"  itemLabel="ساحل العاج" />
+<f:selectItem itemValue="WS"  itemLabel="ساموا" />
+<f:selectItem itemValue="AS"  itemLabel="ساموا الأمريكية" />
+<f:selectItem itemValue="BL"  itemLabel="سان بارتليمي" />
+<f:selectItem itemValue="SM"  itemLabel="سان مارينو" />
+<f:selectItem itemValue="PM"  itemLabel="سانت بيير وميكولون" />
+<f:selectItem itemValue="VC"  itemLabel="سانت فنسنت وغرنادين" />
+<f:selectItem itemValue="KN"  itemLabel="سانت كيتس ونيفيس" />
+<f:selectItem itemValue="LC"  itemLabel="سانت لوسيا" />
+<f:selectItem itemValue="MF"  itemLabel="سانت مارتن" />
+<f:selectItem itemValue="SH"  itemLabel="سانت هيلنا" />
+<f:selectItem itemValue="ST"  itemLabel="ساو تومي وبرينسيبي" />
+<f:selectItem itemValue="LK"  itemLabel="سريلانكا" />
+<f:selectItem itemValue="SJ"  itemLabel="سفالبارد وجان مايان" />
+<f:selectItem itemValue="SK"  itemLabel="سلوفاكيا" />
+<f:selectItem itemValue="SI"  itemLabel="سلوفينيا" />
+<f:selectItem itemValue="SG"  itemLabel="سنغافورة" />
+<f:selectItem itemValue="SZ"  itemLabel="سوازيلاند" />
+<f:selectItem itemValue="SR"  itemLabel="سورينام" />
+<f:selectItem itemValue="CH"  itemLabel="سويسرا" />
+<f:selectItem itemValue="SL"  itemLabel="سيراليون" />
+<f:selectItem itemValue="SC"  itemLabel="سيشل" />
+<f:selectItem itemValue="SX"  itemLabel="سينت مارتن" />
+<f:selectItem itemValue="CL"  itemLabel="شيلي" />
+<f:selectItem itemValue="RS"  itemLabel="صربيا" />
+<f:selectItem itemValue="TJ"  itemLabel="طاجكستان" />
+<f:selectItem itemValue="GM"  itemLabel="غامبيا" />
+<f:selectItem itemValue="GH"  itemLabel="غانا" />
+<f:selectItem itemValue="GD"  itemLabel="غرينادا" />
+<f:selectItem itemValue="GL"  itemLabel="غرينلاند" />
+<f:selectItem itemValue="GT"  itemLabel="غواتيمالا" />
+<f:selectItem itemValue="GU"  itemLabel="غوام" />
+<f:selectItem itemValue="GF"  itemLabel="غويانا الفرنسية" />
+<f:selectItem itemValue="GY"  itemLabel="غيانا" />
+<f:selectItem itemValue="GG"  itemLabel="غيرنزي" />
+<f:selectItem itemValue="GN"  itemLabel="غينيا" />
+<f:selectItem itemValue="GQ"  itemLabel="غينيا الإستوائية" />
+<f:selectItem itemValue="GW"  itemLabel="غينيا بيساو" />
+<f:selectItem itemValue="VU"  itemLabel="فانواتو" />
+<f:selectItem itemValue="FR"  itemLabel="فرنسا" />
+<f:selectItem itemValue="VE"  itemLabel="فنزويلا" />
+<f:selectItem itemValue="FI"  itemLabel="فنلندا" />
+<f:selectItem itemValue="VN"  itemLabel="فيتنام" />
+<f:selectItem itemValue="FJ"  itemLabel="فيجي" />
+<f:selectItem itemValue="CY"  itemLabel="قبرص" />
+<f:selectItem itemValue="KG"  itemLabel="قرغيزستان" />
+<f:selectItem itemValue="KZ"  itemLabel="كازاخستان" />
+<f:selectItem itemValue="NC"  itemLabel="كاليدونيا الجديدة" />
+<f:selectItem itemValue="HR"  itemLabel="كرواتيا" />
+<f:selectItem itemValue="KH"  itemLabel="كمبوديا" />
+<f:selectItem itemValue="CA"  itemLabel="كندا" />
+<f:selectItem itemValue="CU"  itemLabel="كوبا" />
+<f:selectItem itemValue="CW"  itemLabel="كوراساو" />
+<f:selectItem itemValue="KR"  itemLabel="كوريا الجنوبية" />
+<f:selectItem itemValue="KP"  itemLabel="كوريا الشمالية" />
+<f:selectItem itemValue="CR"  itemLabel="كوستاريكا" />
+<f:selectItem itemValue="XK"  itemLabel="كوسوفو" />
+<f:selectItem itemValue="CO"  itemLabel="كولومبيا" />
+<f:selectItem itemValue="KI"  itemLabel="كيريباتي" />
+<f:selectItem itemValue="KE"  itemLabel="كينيا" />
+<f:selectItem itemValue="LV"  itemLabel="لاتفيا" />
+<f:selectItem itemValue="LA"  itemLabel="لاوس" />
+<f:selectItem itemValue="LU"  itemLabel="لوكسمبورغ" />
+<f:selectItem itemValue="LR"  itemLabel="ليبيريا" />
+<f:selectItem itemValue="LT"  itemLabel="ليتوانيا" />
+<f:selectItem itemValue="LI"  itemLabel="ليختنشتاين" />
+<f:selectItem itemValue="LS"  itemLabel="ليسوتو" />
+<f:selectItem itemValue="MQ"  itemLabel="مارتينيك" />
+<f:selectItem itemValue="MT"  itemLabel="مالطا" />
+<f:selectItem itemValue="ML"  itemLabel="مالي" />
+<f:selectItem itemValue="MY"  itemLabel="ماليزيا" />
+<f:selectItem itemValue="YT"  itemLabel="مايوت" />
+<f:selectItem itemValue="MG"  itemLabel="مدغشقر" />
+<f:selectItem itemValue="MK"  itemLabel="مقدونيا" />
+<f:selectItem itemValue="MO"  itemLabel="مكاو الصينية" />
+<f:selectItem itemValue="MW"  itemLabel="ملاوي" />
+<f:selectItem itemValue="MN"  itemLabel="منغوليا" />
+<f:selectItem itemValue="MU"  itemLabel="موريشيوس" />
+<f:selectItem itemValue="MZ"  itemLabel="موزمبيق" />
+<f:selectItem itemValue="MD"  itemLabel="مولدافيا" />
+<f:selectItem itemValue="MC"  itemLabel="موناكو" />
+<f:selectItem itemValue="MS"  itemLabel="مونتسرات" />
+<f:selectItem itemValue="MM"  itemLabel="ميانمار -بورما" />
+<f:selectItem itemValue="FM"  itemLabel="ميكرونيزيا" />
+<f:selectItem itemValue="NA"  itemLabel="ناميبيا" />
+<f:selectItem itemValue="NR"  itemLabel="ناورو" />
+<f:selectItem itemValue="NP"  itemLabel="نيبال" />
+<f:selectItem itemValue="NG"  itemLabel="نيجيريا" />
+<f:selectItem itemValue="NI"  itemLabel="نيكاراغوا" />
+<f:selectItem itemValue="NZ"  itemLabel="نيوزيلاندا" />
+<f:selectItem itemValue="NU"  itemLabel="نيوي" />
+<f:selectItem itemValue="HT"  itemLabel="هايتي" />
+<f:selectItem itemValue="HN"  itemLabel="هندوراس" />
+<f:selectItem itemValue="HU"  itemLabel="هنغاريا" />
+<f:selectItem itemValue="NL"  itemLabel="هولندا" />
+<f:selectItem itemValue="BQ"  itemLabel="هولندا الكاريبية" />
+<f:selectItem itemValue="HK"  itemLabel="هونغ كونغ الصينية" />
+</h:selectOneMenu>
 
 
 </div>
 </div>
 </div>
+</div>
+      
+      
+      <div class="row">
 
+		<div class="col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->نبذة<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		<em class="text--danger">*</em>
+		
+		</label>
+		
+<p:inputTextarea  required="true" type="text" class="form-control" placeholder="برجاء كتابة نبذة " name="about" value="#{admin_freelancerBean.selectedFreelancer.about}" >
 
+</p:inputTextarea>
+		</div>
 
+		</div>
+		
+		</div>
+      
+		</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <h2>روابط المستقل:</h2>
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+      
+      <div class="row">
+
+		<div class="col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->رابط نماذج الأعمال:<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		
+		
+		</label>
+		<p:inputText   type="text" class="form-control" placeholder="أكتب رابط نماذج الأعمال" name="link_works" value="#{admin_freelancerBean.selectedFreelancer.workSampleLink}"/>
+		</div>
+
+		</div>
+		
+		
+		</div>
+		
+		<div class="row">
+
+		<div class="col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->رابط سجل الأعمال:<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		
+		
+		</label>
+		<p:inputText   type="text" class="form-control" placeholder="أكتب رابط سجل الأعمال" name="link_registeration_works" value="#{admin_freelancerBean.selectedFreelancer.workRegLink}"/>
+		</div>
+
+		</div>
+		
+		
+		</div>
+		
+		
+		<div class="row">
+
+		<div class="col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->رابط التقرير المالى:<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		
+		
+		</label>
+		<p:inputText   type="text" class="form-control" placeholder="أكتب رابط التقرير المالى" name="link_money_report" value="#{admin_freelancerBean.selectedFreelancer.moneyreportLink}"/>
+		</div>
+
+		</div>
+		
+		
+		</div>
+		</div>
+    </div>
+  </div>
+   <div class="card">
+    <div class="card-header" id="heading4">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+          <h2>بيانات التواصل مع المستقل:</h2>
+        </button>
+      </h2>
+    </div>
+    <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionExample">
+      <div class="card-body">
+      <div class="row">
+      
+      	<div class="col-sm-6 col-xs-12">
+			
+	
+	<div class="form-group  ">
+			<span class="fa fa-phone icon iconSize"></span>
+			<em class="text--danger">*</em>
+			
+			<p:inputText required="true"  type="text" class="" placeholder="برجاء كتابة رقم الجوال الخاص بك" name="phoneNumber" value="#{admin_freelancerBean.selectedFreelancer.phone}"/>
+			
+			
+	</div>
+	</div>
+	</div>
+	
+	<div class="row">
+      
+      	<div class="col-sm-6 col-xs-12">
+			
+	
+	<div class="form-group  ">
+			<span class="fa fa-whatsapp iconSize"></span>
+			
+			<em class="text--danger"></em>
+			<p:inputText type="text" class="" placeholder="برجاء كتابة حساب الواتس اب" name="whatsupnumber" value="#{admin_freelancerBean.selectedFreelancer.whatsupLink}"/>
+			
+			
+	</div>
+	</div>
+	</div>
+	
+	
+	<div class="row">
+      
+      	<div class="col-sm-6 col-xs-12">
+			
+	
+	<div class="form-group  ">
+			<span class="fa fa-facebook icon iconSize"></span>
+			
+			<em class="text--danger"></em>
+			<p:inputText required="true"  type="text" class="" placeholder="برجاء كتابة حساب الفيس بوك " name="facebookaccount" value="#{admin_freelancerBean.selectedFreelancer.facebookLink}"/>
+			
+			
+	</div>
+	</div>
+	</div>
+	
+	
+	<div class="row">
+      
+      	<div class="col-sm-6 col-xs-12">
+			
+	
+	<div class="form-group  ">
+			<span class="erpSystem-menu-item-link-icon fa fa-envelope iconSize"></span>
+			
+			<em class="text--danger"></em>
+			<p:inputText type="text" class="" placeholder="برجاء كتابة الأيميل" name="email" value="#{admin_freelancerBean.selectedFreelancer.email}"/>
+			
+			
+	</div>
+	</div>
+	</div>
+
+      
+		</div>
+    </div>
+  </div>
+	<div class="card">
+    <div class="card-header" id="heading5">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+          <h2>بيانات الدفع للمستقل:</h2>
+        </button>
+      </h2>
+    </div>
+    <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordionExample">
+      <div class="card-body">
+       <div class="row">
+
+		<div class="col-sm-6 col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->فودافون كاش<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		<em class="text--danger"></em>
+		
+		</label>
+		<p:inputText  type="text" class="form-control" placeholder="برجاء كتابة رقم حساب فودافون كاش" name="vodafoneCash" value="#{admin_freelancerBean.selectedFreelancer.vodafoneCashLink}"/>
+		</div>
+
+		</div>
+		
+		
+		
+		</div>
+		
+		
+		<div class="row">
 <div class="col-sm-6 col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->البريد المصرى<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		<em class="text--danger"></em>
+		
+		</label>
+		<p:inputText  type="text" class="form-control" placeholder="برجاء كتابة البريد المصرى اذا وجد" name="egyptPostal" value="#{admin_freelancerBean.selectedFreelancer.postalCodeName}"/>
+		</div>
 
-<div class="form-group">
+		</div>
+		
+		
+		<div class="col-sm-6 col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->الرقم القومى<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		<em class="text--danger"></em>
+		
+		</label>
+		<p:inputText type="text" class="form-control" placeholder="برجاء كتابة الرقم القومى اذا وجد" name="IdNumber" value="#{admin_freelancerBean.selectedFreelancer.nationalId}"/>
+		</div>
 
-<label><!-- react-text: 75 -->اللغة<!-- /react-text -->
-<!-- react-text: 76 --> <!-- /react-text --><em class="text--danger">*</em>
-</label>
+		</div>
+		
+		
+		
+		
+		
+		</div>
+		
+		
+		
+		 <div class="row">
 
-<div>
-<select name="locale" class="c-select" >
-<option value="ar">العربية</option>
-<option value="en">English</option>
-</select>
+		<div class="col-sm-6 col-xs-12">
+		<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->بيانات دفع أخرى<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		<em class="text--danger"></em>
+		
+		</label>
+		<p:inputTextarea  type="text" class="form-control" placeholder="برجاء كتابة أى بيانات دفع أخرى" name="anotherPaymentMethod" value="#{admin_freelancerBean.selectedFreelancer.otherPaymentMethods}"/>
+		</div>
+
+		</div>
+		
+		
+		
+		</div>
+		</div>
+    </div>
+  </div>
+  
 </div>
-</div>
-</div>
 
-
-<div class="col-sm-6 col-xs-12"><div class="form-group"><label>
-<!-- react-text: 94 -->الجنس<!-- /react-text --><!-- react-text: 95 --> 
-<!-- /react-text --><em class="text--danger">*</em></label>
-<div>
-<select name="gender" class="c-select" >
-<option value="F">أنثى</option>
-<option value="M">ذكر</option>
-</select>
-
-</div>
-</div>
-</div>
-
-
-
-
-
-</div>
 
 		
-<h2>روابط المستقل:</h2>
 
 
 
-<h2>بيانات التواصل مع المستقل:</h2>
 
 
-<h2>بيانات الدفع للمستقل:</h2>
 
 
+
+
+<br></br>
 
 <div class="col-md-4 col-xs-12">
-<button type="submit" class="btn btn-ghost btn-primary btn-block">حفظ التعديلات</button>
+<p:commandButton value="حفظ التعديلات" actionListener="#{admin_freelancerBean.addNewFreelancer()}" class="btn btn-ghost btn-primary btn-block"/>
 </div>
+
+
+
+
 		</h:form>
 		
 		</div>

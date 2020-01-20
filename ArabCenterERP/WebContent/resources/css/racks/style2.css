@@ -262,8 +262,7 @@ background-color:#fadac3}
 background-color:#fef4f4}
 a.bg-danger:focus,a.bg-danger:hover{
 background-color:#fac5c5}
-.page-header{
-padding-bottom:9px;margin:40px 0 20px;border-bottom:1px solid #eee}
+.page-header{padding-bottom:9px;margin:  0 20px;border-bottom:1px solid #eee;}
 ol,ul{
 }
 ol ol,ol ul,ul ol,ul ul{
@@ -1814,10 +1813,8 @@ padding-right:60px;padding-left:60px}
 .jumbotron .h1,.jumbotron h1{
 font-size:63px}
 }
-.thumbnail{
-display:block;padding:4px;margin-bottom:20px;line-height:1.42857;background-color:#eceff4;border:1px solid #ddd;border-radius:4px;-webkit-transition:border .2s ease-in-out;transition:border .2s ease-in-out}
-.thumbnail>img,.thumbnail a>img{
-display:block;max-width:100%;height:auto;margin-right:auto;margin-left:auto}
+.thumbnail{display:block;/* padding: 4px; *//* width: 81%; */margin-bottom: 4px;line-height:1.42857;background-color:#eceff4;border:1px solid #ddd;border-radius:4px;-webkit-transition:border .2s ease-in-out;transition:border .2s ease-in-out;}
+.thumbnail>img,.thumbnail a>img{display:block;max-height: 74px;height:auto;margin-right:auto;margin-left:auto;}
 .thumbnail .caption{
 padding:9px;color:#888e99}
 a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover{
@@ -2919,7 +2916,7 @@ right:40px;left:auto}
 .c-dropdown--right.c-dropdown--avatar .c-dropdown__list:after{
 right:14px;left:auto}
 .flag{
-width:16px;height:11px;display:inline-block;vertical-align:middle;background:url(/static/media/flags.1d4edf2f.png) no-repeat}
+width:16px;height:11px;display:inline-block;vertical-align:middle;background:url(/resources/css/racks/flags.1d4edf2f.png) no-repeat}
 .flag.flag-ad{
 background-position:-16px 0}
 .flag.flag-ae{
@@ -5301,8 +5298,7 @@ content:"";background:-webkit-linear-gradient(left,transparent,#818078,transpare
 content:attr(data-content);position:relative;display:inline-block;color:#000;padding:0 .5em;line-height:1.5em;background-color:#fff}
 .container-fluid{
 max-width:1170px;padding:18px}
-.container--small{
-max-width:768px}
+.container--small{max-width: 95%;}
 @media (max-width:480px){
 .main-spacer{
 padding:25px 10px}

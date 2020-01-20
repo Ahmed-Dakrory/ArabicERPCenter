@@ -1,17 +1,22 @@
 package main.com.crm.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.TabChangeEvent;
 
 import main.com.crm.loginNeeds.user;
-import main.com.crm.models.fieldExFields;
+import main.com.crm.models.fieldMainFields;
+import main.com.crm.models.userModificationFreelancer;
 import main.com.crm.work_field.work_field;
 import main.com.crm.work_field.work_fieldAppServiceImpl;
 import main.com.crm.work_field_user.work_field_user;
@@ -27,8 +32,8 @@ public class admin_freelancerBean implements Serializable{
 	 */
 	private static final long serialVersionUID = -6715784400190397743L;
 
-    private List<work_field> selectedSkills;
-    private List<work_field> selectedEx_Skills;
+    private List<String> selectedSkills;
+    private List<String> selectedEx_Skills;
     
 
 	@ManagedProperty(value = "#{work_fieldFacadeImpl}")
@@ -48,189 +53,144 @@ public class admin_freelancerBean implements Serializable{
 	
 	
 
-    private List<work_field> listOfAllGateg;
+    private List<work_field> listOfAllMainGateg;
     
 
     private List<work_field_user> listOfAllUser;
 
-    private List<work_field_user> listOfAllUserOfGateg1;
-    private List<work_field_user> listOfAllUserOfGateg1_Type1;
-    private List<work_field_user> listOfAllUserOfGateg1_Type2;
-    private List<work_field_user> listOfAllUserOfGateg1_Type3;
-    private List<work_field_user> listOfAllUserOfGateg1_Type4;
-    /**
-     * this contain all fields related to the main field with the user include
-     * in the extended field
-     */
+    private List<fieldMainFields> listOfAllMainGategStructure;
+   
     
-    private fieldExFields listOfAllFieldRelatedToGateg1;
+
+    private List<work_field> allFields;
+    private List<work_field> allExFields;
     
     
 
-    private List<work_field_user> listOfAllUserOfGateg2;
-    private List<work_field_user> listOfAllUserOfGateg2_Type1;
-    private List<work_field_user> listOfAllUserOfGateg2_Type2;
-    private List<work_field_user> listOfAllUserOfGateg2_Type3;
-    private List<work_field_user> listOfAllUserOfGateg2_Type4;
-    
+    private List<work_field_user> newListUsers; 
+    private List<work_field_user> hotListUsers; 
+    private List<work_field_user> coldListUsers; 
+    private List<work_field_user> oldListUsers; 
 
-    private List<work_field_user> listOfAllUserOfGateg3;
-    private List<work_field_user> listOfAllUserOfGateg3_Type1;
-    private List<work_field_user> listOfAllUserOfGateg3_Type2;
-    private List<work_field_user> listOfAllUserOfGateg3_Type3;
-    private List<work_field_user> listOfAllUserOfGateg3_Type4;
-    
 
-    private List<work_field_user> listOfAllUserOfGateg4;
-    private List<work_field_user> listOfAllUserOfGateg4_Type1;
-    private List<work_field_user> listOfAllUserOfGateg4_Type2;
-    private List<work_field_user> listOfAllUserOfGateg4_Type3;
-    private List<work_field_user> listOfAllUserOfGateg4_Type4;
-    
-    
-
-    private List<work_field_user> listOfAllUserOfGateg5;
-    private List<work_field_user> listOfAllUserOfGateg5_Type1;
-    private List<work_field_user> listOfAllUserOfGateg5_Type2;
-    private List<work_field_user> listOfAllUserOfGateg5_Type3;
-    private List<work_field_user> listOfAllUserOfGateg5_Type4;
-    
-    
-
-    private List<work_field_user> listOfAllUserOfGateg6;
-    private List<work_field_user> listOfAllUserOfGateg6_Type1;
-    private List<work_field_user> listOfAllUserOfGateg6_Type2;
-    private List<work_field_user> listOfAllUserOfGateg6_Type3;
-    private List<work_field_user> listOfAllUserOfGateg6_Type4;
-    
-    
-
-    private List<work_field_user> listOfAllUserOfGateg7;
-    private List<work_field_user> listOfAllUserOfGateg7_Type1;
-    private List<work_field_user> listOfAllUserOfGateg7_Type2;
-    private List<work_field_user> listOfAllUserOfGateg7_Type3;
-    private List<work_field_user> listOfAllUserOfGateg7_Type4;
-    
-    
+    private userModificationFreelancer selectedUserToBeModified;
     
 	@PostConstruct
 	public void init() {
-	
+		allFields= work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
 	}
 	
+	 public void onUserTabChange(TabChangeEvent event) {
+		 
+		 int fieldUserId = Integer.valueOf((event.getTab().getTitletip()));
+		 System.out.println("MohamedAbas: "+fieldUserId);
+		 selectedUserToBeModified( fieldUserId);
+	    }
+	
+	public void selectedUserToBeModified(int idFieldUser) {
+		
+		work_field_user wFU = work_field_userDataFacede.getById(idFieldUser);
+		List<String>comments=new ArrayList<String>();
+		comments.add("please modify it8");
+		comments.add("please modify it7");
+		comments.add("please modify it6");
+		comments.add("please modify it5");
+		comments.add("please modify it4");
+		comments.add("please modify it3");
+		comments.add("please modify it1");
+		comments.add("please modify it2");
+		selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.IsLike);
+
+		
+		PrimeFaces.current().executeScript("reloadAllselectedUserToBeModified();");
+	}
+	
+	public void modifyFreelancer(int userId) {
+		selectedFreelancer =loginBean.getUserDataFacede().getById(userId);
+		
+		if(selectedFreelancer!=null) {
+			List<work_field_user>selectedSkills_User = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_SKILL);
+			 selectedSkills = new ArrayList<String>();
+			 if(selectedSkills_User!=null) {
+				 for(int i=0;i<selectedSkills_User.size();i++) {
+					 selectedSkills.add(selectedSkills_User.get(i).getWork_fieldId().getField());
+				}
+			 }
+			 
+			
+			 
+			 List<work_field_user>selectedExSkills_User = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_EX_SKILL);
+			 selectedEx_Skills = new ArrayList<String>();
+			 if(selectedExSkills_User!=null) {
+				 for(int i=0;i<selectedExSkills_User.size();i++) {
+					 selectedEx_Skills.add(selectedExSkills_User.get(i).getWork_fieldId().getField());
+				}
+			 }
+			}
+		
+		
+		try {
+			
+			FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/ar/secured/admin/modifyfreelancer.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void fetchlistOfAllUserOfGateg() {
 		
 		
-		listOfAllGateg=work_fieldDataFacede.getAll();
+		listOfAllMainGateg=work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
 		listOfAllUser=work_field_userDataFacede.getAll();
 		
-		   listOfAllUserOfGateg1=work_field_userDataFacede.getAllByField(29);
-		   listOfAllUserOfGateg1_Type1=work_field_userDataFacede.getAllByField( 29);
-		   listOfAllUserOfGateg1_Type2=work_field_userDataFacede.getAllByField( 29);
-		   listOfAllUserOfGateg1_Type3=work_field_userDataFacede.getAllByField( 29);
-		   listOfAllUserOfGateg1_Type4=work_field_userDataFacede.getAllByField( 29);		   
-		   listOfAllFieldRelatedToGateg1=new fieldExFields(listOfAllGateg.get(0), work_fieldDataFacede, work_field_userDataFacede);
+		newListUsers = work_field_userDataFacede.getAllHaveEvalLikelessThanAndDislikeMoreThan( work_field_user.New_EqualOrLessThanLike, work_field_user.New_EqualOrMoreThanDisLike);
+		hotListUsers = work_field_userDataFacede.getAllHaveEvalDiffLikeAndDislikeMoreThan( work_field_user.HotListEqualOrMoreThan);
+		coldListUsers = work_field_userDataFacede.getAllHaveEvalDiffLikeAndDislikeLessThan( work_field_user.ColdListEqualOrLess);
+		oldListUsers = work_field_userDataFacede.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThan( user.VACATIONSTATE_In_VACATION,work_field_user.OldLessThanOrEqual);
+
 		
-		   
-		   
-		   
-		   listOfAllUserOfGateg2=work_field_userDataFacede.getAllByField( 30);
-		   listOfAllUserOfGateg2_Type1=work_field_userDataFacede.getAllByField( 30);
-		   listOfAllUserOfGateg2_Type2=work_field_userDataFacede.getAllByField( 30);
-		   listOfAllUserOfGateg2_Type3=work_field_userDataFacede.getAllByField( 30);
-		   listOfAllUserOfGateg2_Type4=work_field_userDataFacede.getAllByField( 30);
+		listOfAllMainGategStructure=new ArrayList<fieldMainFields>();
 		
-		   
-		   listOfAllUserOfGateg3=work_field_userDataFacede.getAllByField( 31);
-		   listOfAllUserOfGateg3_Type1=work_field_userDataFacede.getAllByField( 31);
-		   listOfAllUserOfGateg3_Type2=work_field_userDataFacede.getAllByField( 31);
-		   listOfAllUserOfGateg3_Type3=work_field_userDataFacede.getAllByField( 31);
-		   listOfAllUserOfGateg3_Type4=work_field_userDataFacede.getAllByField( 31);
-		
-		   
-		   listOfAllUserOfGateg4=work_field_userDataFacede.getAllByField( 42);
-		   listOfAllUserOfGateg4_Type1=work_field_userDataFacede.getAllByField( 42);
-		   listOfAllUserOfGateg4_Type2=work_field_userDataFacede.getAllByField( 42);
-		   listOfAllUserOfGateg4_Type3=work_field_userDataFacede.getAllByField( 42);
-		   listOfAllUserOfGateg4_Type4=work_field_userDataFacede.getAllByField( 42);
-		
-		   
-		   listOfAllUserOfGateg5=work_field_userDataFacede.getAllByField( 43);
-		   listOfAllUserOfGateg5_Type1=work_field_userDataFacede.getAllByField( 43);
-		   listOfAllUserOfGateg5_Type2=work_field_userDataFacede.getAllByField( 43);
-		   listOfAllUserOfGateg5_Type3=work_field_userDataFacede.getAllByField( 43);
-		   listOfAllUserOfGateg5_Type4=work_field_userDataFacede.getAllByField( 43);
-		
-		   
-		   listOfAllUserOfGateg6=work_field_userDataFacede.getAllByField( 44);
-		   listOfAllUserOfGateg6_Type1=work_field_userDataFacede.getAllByField( 44);
-		   listOfAllUserOfGateg6_Type2=work_field_userDataFacede.getAllByField( 44);
-		   listOfAllUserOfGateg6_Type3=work_field_userDataFacede.getAllByField( 44);
-		   listOfAllUserOfGateg6_Type4=work_field_userDataFacede.getAllByField( 44);
-	
-		   
-		   listOfAllUserOfGateg7=work_field_userDataFacede.getAllByField( 45);
-		   listOfAllUserOfGateg7_Type1=work_field_userDataFacede.getAllByField( 45);
-		   listOfAllUserOfGateg7_Type2=work_field_userDataFacede.getAllByField( 45);
-		   listOfAllUserOfGateg7_Type3=work_field_userDataFacede.getAllByField( 45);
-		   listOfAllUserOfGateg7_Type4=work_field_userDataFacede.getAllByField( 45);
-		
+		for(int i=0;i<listOfAllMainGateg.size();i++) {
+			fieldMainFields fieldMF=new fieldMainFields(listOfAllMainGateg.get(i), work_fieldDataFacede, work_field_userDataFacede);
+			listOfAllMainGategStructure.add(fieldMF);
+		}
+		  
 	}
 	
 	
 	public void refresh(){
+		allFields= work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
 		
+		selectedFreelancer=new user();
 		
-		selectedFreelancer=loginBean.getUserDataFacede().getById(1);
-		if(selectedFreelancer!=null) {
-		List<work_field_user>selectedSkills_User = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_SKILL);
-		 selectedSkills = new ArrayList<work_field>();
-		 if(selectedSkills_User!=null) {
-			 for(int i=0;i<selectedSkills_User.size();i++) {
-				 selectedSkills.add(selectedSkills_User.get(i).getWork_fieldId());
+	}
+	
+	public void fetchAllExFields() {
+		System.out.println("AhmedOk");
+		
+		if(selectedSkills.size()>0) {
+			allExFields= new ArrayList<work_field>();
+			
+		for(int i=0;i<selectedSkills.size();i++) {
+			work_field wf = work_fieldDataFacede.getByField(selectedSkills.get(i));
+			
+			List<work_field>wFList =  work_fieldDataFacede.getAllWithRelatedToField(wf.getId());
+			if(wFList!=null) {
+			allExFields.addAll(wFList);
+			
 			}
-		 }
-		 
-		
-		 
-		 List<work_field_user>selectedExSkills_User = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_EX_SKILL);
-		 selectedEx_Skills = new ArrayList<work_field>();
-		 if(selectedExSkills_User!=null) {
-			 for(int i=0;i<selectedExSkills_User.size();i++) {
-				 selectedEx_Skills.add(selectedExSkills_User.get(i).getWork_fieldId());
-			}
-		 }
 		}
+		
+		
+		}
+	        
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formMain:user_skills-panel");
+		
 	}
 	
 	
-	public List<work_field> completeSkills(String query) {
-        String queryLowerCase = query.toLowerCase();
-        List<work_field> allTags= work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
-        List<work_field> filteredTags=null;
-        if(allTags!=null) {
-         filteredTags =  allTags.stream().filter(t -> t.getField().toLowerCase().startsWith(queryLowerCase)).collect(Collectors.toList());
-        }
-        
-
-        return filteredTags;
-    }
-	
-	public List<work_field> completeExSkills(String query) {
-		
-		 String queryLowerCase = query.toLowerCase();
-	        List<work_field> allTags= work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_EX_SKILL);
-	        
-	        
-	        List<work_field> filteredTags=null;
-	        if(allTags!=null) {
-	         filteredTags =  allTags.stream().filter(t -> t.getField().toLowerCase().startsWith(queryLowerCase)).collect(Collectors.toList());
-	        }
-	        
-
-	        return filteredTags;
-	        
-      }
 
 	public void addNewFreelancer() {
 		loginBean.getUserDataFacede().adduser(selectedFreelancer);
@@ -247,11 +207,11 @@ public class admin_freelancerBean implements Serializable{
 		if(selectedSkills!=null) {	
 	    	System.out.println("Ahmed3: "+selectedSkills.size());
 		for(int i=0;i<selectedSkills.size();i++) {
+			work_field wf =work_fieldDataFacede.getByField(selectedSkills.get(i));
 			work_field_user workFieldUser=new work_field_user();
 			workFieldUser.setUserId(selectedFreelancer);
-			workFieldUser.setWork_fieldId(selectedSkills.get(i));
+			workFieldUser.setWork_fieldId(wf);
 
-	    	System.out.println("Ahmed3: "+String.valueOf(workFieldUser.getWork_fieldId().getField()));
 			work_field_userDataFacede.addwork_field_user(workFieldUser);
 			
 		}
@@ -259,21 +219,34 @@ public class admin_freelancerBean implements Serializable{
 	}
 		if(selectedEx_Skills!=null) {
 		for(int i=0;i<selectedEx_Skills.size();i++) {
+			
+			work_field wf =work_fieldDataFacede.getByField(selectedEx_Skills.get(i));
 			work_field_user workFieldUser=new work_field_user();
 			workFieldUser.setUserId(selectedFreelancer);
-			workFieldUser.setWork_fieldId(selectedEx_Skills.get(i));
+			workFieldUser.setWork_fieldId(wf);
+
 			work_field_userDataFacede.addwork_field_user(workFieldUser);
+			
+		
 			
 		}
 		}
 		
-		
+		try {
+			
+			FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/ar/secured/admin/freelancersList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public List<work_field> getSelectedSkills() {
+	
+	public List<String> getSelectedSkills() {
 		return selectedSkills;
 	}
 
-	public void setSelectedSkills(List<work_field> selectedSkills) {
+	public void setSelectedSkills(List<String> selectedSkills) {
 		this.selectedSkills = selectedSkills;
 	}
 
@@ -298,11 +271,11 @@ public class admin_freelancerBean implements Serializable{
 		this.loginBean = loginBean;
 	}
 
-	public List<work_field> getSelectedEx_Skills() {
+	public List<String> getSelectedEx_Skills() {
 		return selectedEx_Skills;
 	}
 
-	public void setSelectedEx_Skills(List<work_field> selectedEx_Skills) {
+	public void setSelectedEx_Skills(List<String> selectedEx_Skills) {
 		this.selectedEx_Skills = selectedEx_Skills;
 	}
 
@@ -322,292 +295,21 @@ public class admin_freelancerBean implements Serializable{
 		this.selectedFreelancer = selectedFreelancer;
 	}
 
-	public List<work_field_user> getListOfAllUserOfGateg1() {
-		return listOfAllUserOfGateg1;
-	}
-
-	public void setListOfAllUserOfGateg1(List<work_field_user> listOfAllUserOfGateg1) {
-		this.listOfAllUserOfGateg1 = listOfAllUserOfGateg1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg1_Type1() {
-		return listOfAllUserOfGateg1_Type1;
-	}
-
-	public void setListOfAllUserOfGateg1_Type1(List<work_field_user> listOfAllUserOfGateg1_Type1) {
-		this.listOfAllUserOfGateg1_Type1 = listOfAllUserOfGateg1_Type1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg1_Type2() {
-		return listOfAllUserOfGateg1_Type2;
-	}
-
-	public void setListOfAllUserOfGateg1_Type2(List<work_field_user> listOfAllUserOfGateg1_Type2) {
-		this.listOfAllUserOfGateg1_Type2 = listOfAllUserOfGateg1_Type2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg1_Type3() {
-		return listOfAllUserOfGateg1_Type3;
-	}
-
-	public void setListOfAllUserOfGateg1_Type3(List<work_field_user> listOfAllUserOfGateg1_Type3) {
-		this.listOfAllUserOfGateg1_Type3 = listOfAllUserOfGateg1_Type3;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg1_Type4() {
-		return listOfAllUserOfGateg1_Type4;
-	}
-
-	public void setListOfAllUserOfGateg1_Type4(List<work_field_user> listOfAllUserOfGateg1_Type4) {
-		this.listOfAllUserOfGateg1_Type4 = listOfAllUserOfGateg1_Type4;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg2() {
-		return listOfAllUserOfGateg2;
-	}
-
-	public void setListOfAllUserOfGateg2(List<work_field_user> listOfAllUserOfGateg2) {
-		this.listOfAllUserOfGateg2 = listOfAllUserOfGateg2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg2_Type1() {
-		return listOfAllUserOfGateg2_Type1;
-	}
-
-	public void setListOfAllUserOfGateg2_Type1(List<work_field_user> listOfAllUserOfGateg2_Type1) {
-		this.listOfAllUserOfGateg2_Type1 = listOfAllUserOfGateg2_Type1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg2_Type2() {
-		return listOfAllUserOfGateg2_Type2;
-	}
-
-	public void setListOfAllUserOfGateg2_Type2(List<work_field_user> listOfAllUserOfGateg2_Type2) {
-		this.listOfAllUserOfGateg2_Type2 = listOfAllUserOfGateg2_Type2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg2_Type3() {
-		return listOfAllUserOfGateg2_Type3;
-	}
-
-	public void setListOfAllUserOfGateg2_Type3(List<work_field_user> listOfAllUserOfGateg2_Type3) {
-		this.listOfAllUserOfGateg2_Type3 = listOfAllUserOfGateg2_Type3;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg2_Type4() {
-		return listOfAllUserOfGateg2_Type4;
-	}
-
-	public void setListOfAllUserOfGateg2_Type4(List<work_field_user> listOfAllUserOfGateg2_Type4) {
-		this.listOfAllUserOfGateg2_Type4 = listOfAllUserOfGateg2_Type4;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg3() {
-		return listOfAllUserOfGateg3;
-	}
-
-	public void setListOfAllUserOfGateg3(List<work_field_user> listOfAllUserOfGateg3) {
-		this.listOfAllUserOfGateg3 = listOfAllUserOfGateg3;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg3_Type1() {
-		return listOfAllUserOfGateg3_Type1;
-	}
-
-	public void setListOfAllUserOfGateg3_Type1(List<work_field_user> listOfAllUserOfGateg3_Type1) {
-		this.listOfAllUserOfGateg3_Type1 = listOfAllUserOfGateg3_Type1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg3_Type2() {
-		return listOfAllUserOfGateg3_Type2;
-	}
-
-	public void setListOfAllUserOfGateg3_Type2(List<work_field_user> listOfAllUserOfGateg3_Type2) {
-		this.listOfAllUserOfGateg3_Type2 = listOfAllUserOfGateg3_Type2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg3_Type3() {
-		return listOfAllUserOfGateg3_Type3;
-	}
-
-	public void setListOfAllUserOfGateg3_Type3(List<work_field_user> listOfAllUserOfGateg3_Type3) {
-		this.listOfAllUserOfGateg3_Type3 = listOfAllUserOfGateg3_Type3;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg3_Type4() {
-		return listOfAllUserOfGateg3_Type4;
-	}
-
-	public void setListOfAllUserOfGateg3_Type4(List<work_field_user> listOfAllUserOfGateg3_Type4) {
-		this.listOfAllUserOfGateg3_Type4 = listOfAllUserOfGateg3_Type4;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg4() {
-		return listOfAllUserOfGateg4;
-	}
-
-	public void setListOfAllUserOfGateg4(List<work_field_user> listOfAllUserOfGateg4) {
-		this.listOfAllUserOfGateg4 = listOfAllUserOfGateg4;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg4_Type1() {
-		return listOfAllUserOfGateg4_Type1;
-	}
-
-	public void setListOfAllUserOfGateg4_Type1(List<work_field_user> listOfAllUserOfGateg4_Type1) {
-		this.listOfAllUserOfGateg4_Type1 = listOfAllUserOfGateg4_Type1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg4_Type2() {
-		return listOfAllUserOfGateg4_Type2;
-	}
-
-	public void setListOfAllUserOfGateg4_Type2(List<work_field_user> listOfAllUserOfGateg4_Type2) {
-		this.listOfAllUserOfGateg4_Type2 = listOfAllUserOfGateg4_Type2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg4_Type3() {
-		return listOfAllUserOfGateg4_Type3;
-	}
-
-	public void setListOfAllUserOfGateg4_Type3(List<work_field_user> listOfAllUserOfGateg4_Type3) {
-		this.listOfAllUserOfGateg4_Type3 = listOfAllUserOfGateg4_Type3;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg4_Type4() {
-		return listOfAllUserOfGateg4_Type4;
-	}
-
-	public void setListOfAllUserOfGateg4_Type4(List<work_field_user> listOfAllUserOfGateg4_Type4) {
-		this.listOfAllUserOfGateg4_Type4 = listOfAllUserOfGateg4_Type4;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg5() {
-		return listOfAllUserOfGateg5;
-	}
-
-	public void setListOfAllUserOfGateg5(List<work_field_user> listOfAllUserOfGateg5) {
-		this.listOfAllUserOfGateg5 = listOfAllUserOfGateg5;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg5_Type1() {
-		return listOfAllUserOfGateg5_Type1;
-	}
-
-	public void setListOfAllUserOfGateg5_Type1(List<work_field_user> listOfAllUserOfGateg5_Type1) {
-		this.listOfAllUserOfGateg5_Type1 = listOfAllUserOfGateg5_Type1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg5_Type2() {
-		return listOfAllUserOfGateg5_Type2;
-	}
-
-	public void setListOfAllUserOfGateg5_Type2(List<work_field_user> listOfAllUserOfGateg5_Type2) {
-		this.listOfAllUserOfGateg5_Type2 = listOfAllUserOfGateg5_Type2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg5_Type3() {
-		return listOfAllUserOfGateg5_Type3;
-	}
-
-	public void setListOfAllUserOfGateg5_Type3(List<work_field_user> listOfAllUserOfGateg5_Type3) {
-		this.listOfAllUserOfGateg5_Type3 = listOfAllUserOfGateg5_Type3;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg5_Type4() {
-		return listOfAllUserOfGateg5_Type4;
-	}
-
-	public void setListOfAllUserOfGateg5_Type4(List<work_field_user> listOfAllUserOfGateg5_Type4) {
-		this.listOfAllUserOfGateg5_Type4 = listOfAllUserOfGateg5_Type4;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg6() {
-		return listOfAllUserOfGateg6;
-	}
-
-	public void setListOfAllUserOfGateg6(List<work_field_user> listOfAllUserOfGateg6) {
-		this.listOfAllUserOfGateg6 = listOfAllUserOfGateg6;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg6_Type1() {
-		return listOfAllUserOfGateg6_Type1;
-	}
-
-	public void setListOfAllUserOfGateg6_Type1(List<work_field_user> listOfAllUserOfGateg6_Type1) {
-		this.listOfAllUserOfGateg6_Type1 = listOfAllUserOfGateg6_Type1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg6_Type2() {
-		return listOfAllUserOfGateg6_Type2;
-	}
-
-	public void setListOfAllUserOfGateg6_Type2(List<work_field_user> listOfAllUserOfGateg6_Type2) {
-		this.listOfAllUserOfGateg6_Type2 = listOfAllUserOfGateg6_Type2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg6_Type3() {
-		return listOfAllUserOfGateg6_Type3;
-	}
-
-	public void setListOfAllUserOfGateg6_Type3(List<work_field_user> listOfAllUserOfGateg6_Type3) {
-		this.listOfAllUserOfGateg6_Type3 = listOfAllUserOfGateg6_Type3;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg6_Type4() {
-		return listOfAllUserOfGateg6_Type4;
-	}
-
-	public void setListOfAllUserOfGateg6_Type4(List<work_field_user> listOfAllUserOfGateg6_Type4) {
-		this.listOfAllUserOfGateg6_Type4 = listOfAllUserOfGateg6_Type4;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg7() {
-		return listOfAllUserOfGateg7;
-	}
-
-	public void setListOfAllUserOfGateg7(List<work_field_user> listOfAllUserOfGateg7) {
-		this.listOfAllUserOfGateg7 = listOfAllUserOfGateg7;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg7_Type1() {
-		return listOfAllUserOfGateg7_Type1;
-	}
-
-	public void setListOfAllUserOfGateg7_Type1(List<work_field_user> listOfAllUserOfGateg7_Type1) {
-		this.listOfAllUserOfGateg7_Type1 = listOfAllUserOfGateg7_Type1;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg7_Type2() {
-		return listOfAllUserOfGateg7_Type2;
-	}
-
-	public void setListOfAllUserOfGateg7_Type2(List<work_field_user> listOfAllUserOfGateg7_Type2) {
-		this.listOfAllUserOfGateg7_Type2 = listOfAllUserOfGateg7_Type2;
-	}
-
-	public List<work_field_user> getListOfAllUserOfGateg7_Type3() {
-		return listOfAllUserOfGateg7_Type3;
-	}
-
-	public void setListOfAllUserOfGateg7_Type3(List<work_field_user> listOfAllUserOfGateg7_Type3) {
-		this.listOfAllUserOfGateg7_Type3 = listOfAllUserOfGateg7_Type3;
-	}
 
-	public List<work_field_user> getListOfAllUserOfGateg7_Type4() {
-		return listOfAllUserOfGateg7_Type4;
+	public List<work_field> getListOfAllMainGateg() {
+		return listOfAllMainGateg;
 	}
 
-	public void setListOfAllUserOfGateg7_Type4(List<work_field_user> listOfAllUserOfGateg7_Type4) {
-		this.listOfAllUserOfGateg7_Type4 = listOfAllUserOfGateg7_Type4;
+	public void setListOfAllMainGateg(List<work_field> listOfAllMainGateg) {
+		this.listOfAllMainGateg = listOfAllMainGateg;
 	}
 
-	public List<work_field> getListOfAllGateg() {
-		return listOfAllGateg;
+	public List<fieldMainFields> getListOfAllMainGategStructure() {
+		return listOfAllMainGategStructure;
 	}
 
-	public void setListOfAllGateg(List<work_field> listOfAllGateg) {
-		this.listOfAllGateg = listOfAllGateg;
+	public void setListOfAllMainGategStructure(List<fieldMainFields> listOfAllMainGategStructure) {
+		this.listOfAllMainGategStructure = listOfAllMainGategStructure;
 	}
 
 	public List<work_field_user> getListOfAllUser() {
@@ -618,12 +320,63 @@ public class admin_freelancerBean implements Serializable{
 		this.listOfAllUser = listOfAllUser;
 	}
 
-	public fieldExFields getListOfAllFieldRelatedToGateg1() {
-		return listOfAllFieldRelatedToGateg1;
+	
+	public List<work_field> getAllFields() {
+		return allFields;
 	}
 
-	public void setListOfAllFieldRelatedToGateg1(fieldExFields listOfAllFieldRelatedToGateg1) {
-		this.listOfAllFieldRelatedToGateg1 = listOfAllFieldRelatedToGateg1;
+	public void setAllFields(List<work_field> allFields) {
+		this.allFields = allFields;
+	}
+
+	public List<work_field> getAllExFields() {
+		return allExFields;
+	}
+
+	public void setAllExFields(List<work_field> allExFields) {
+		this.allExFields = allExFields;
+	}
+
+	public List<work_field_user> getNewListUsers() {
+		return newListUsers;
+	}
+
+	public void setNewListUsers(List<work_field_user> newListUsers) {
+		this.newListUsers = newListUsers;
+	}
+
+	public List<work_field_user> getHotListUsers() {
+		return hotListUsers;
+	}
+
+	public void setHotListUsers(List<work_field_user> hotListUsers) {
+		this.hotListUsers = hotListUsers;
+	}
+
+	public List<work_field_user> getColdListUsers() {
+		return coldListUsers;
+	}
+
+	public void setColdListUsers(List<work_field_user> coldListUsers) {
+		this.coldListUsers = coldListUsers;
+	}
+
+	public List<work_field_user> getOldListUsers() {
+		return oldListUsers;
+	}
+
+	public void setOldListUsers(List<work_field_user> oldListUsers) {
+		this.oldListUsers = oldListUsers;
+	}
+
+
+	public userModificationFreelancer getSelectedUserToBeModified() {
+		return selectedUserToBeModified;
+	}
+
+
+	public void setSelectedUserToBeModified(userModificationFreelancer selectedUserToBeModified) {
+		this.selectedUserToBeModified = selectedUserToBeModified;
 	}
      
 	

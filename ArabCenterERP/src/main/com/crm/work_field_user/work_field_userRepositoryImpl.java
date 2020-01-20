@@ -116,6 +116,92 @@ public class work_field_userRepositoryImpl implements work_field_userRepository{
 		 }
 	}
 
+	@Override
+	public List<work_field_user> getAllByFieldHaveEvalDiffLikeAndDislikeMoreThan(int idField, int diff) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllByFieldHaveEvalDiffLikeAndDislikeMoreThan").setInteger("idField",idField).setInteger("diff", diff);
+
+				 @SuppressWarnings("unchecked")
+				List<work_field_user> results=query.list();
+				 
+					 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllByFieldHaveEvalDiffLikeAndDislikeLessThan(int idField, int diff) {
+		// TODO Auto-generated method stub
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllByFieldHaveEvalDiffLikeAndDislikeLessThan").setInteger("idField",idField).setInteger("diff", diff);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeMoreThan(int diff) {
+		// TODO Auto-generated method stub
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalDiffLikeAndDislikeMoreThan").setInteger("diff", diff);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeLessThan(int diff) {
+		// TODO Auto-generated method stub
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalDiffLikeAndDislikeLessThan").setInteger("diff", diff);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllByFieldAndInVacationStateHaveEvalDiffLikeAndDislikeLessThan(int idField,
+			int state, int diff) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllByFieldAndInVacationStateHaveEvalDiffLikeAndDislikeLessThan").setInteger("idField",idField).setInteger("state",state).setInteger("diff", diff);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThan(int state, int diff) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThan").setInteger("state",state).setInteger("diff", diff);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllHaveEvalLikelessThanAndDislikeMoreThan(int goodLess, int badMore) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalLikelessThanAndDislikeMoreThan").setInteger("goodLess",goodLess).setInteger("badMore",badMore);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllByFieldHaveEvalLikelessThanAndDislikeMoreThan(int idField, int goodLess,
+			int badMore) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllByFieldHaveEvalLikelessThanAndDislikeMoreThan").setInteger("idField",idField).setInteger("goodLess",goodLess).setInteger("badMore", badMore);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
 
 
 }

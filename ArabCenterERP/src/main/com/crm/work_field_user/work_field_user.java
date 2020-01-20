@@ -44,6 +44,47 @@ import main.com.crm.work_field.work_field;
 	query = "from work_field_user d where d.userId.id = :idUser and d.work_fieldId.type = :type"
 			)
 	
+	,
+	@NamedQuery(name="work_field_user.getAllByFieldHaveEvalDiffLikeAndDislikeMoreThan",
+	query = "from work_field_user d where d.work_fieldId.id = :idField and (d.good - d.bad)>= :diff"
+			)
+	
+	,
+	@NamedQuery(name="work_field_user.getAllByFieldHaveEvalDiffLikeAndDislikeLessThan",
+	query = "from work_field_user d where d.work_fieldId.id = :idField and (d.good - d.bad)<= :diff"
+			)
+	
+	,
+	@NamedQuery(name="work_field_user.getAllByFieldHaveEvalLikelessThanAndDislikeMoreThan",
+	query = "from work_field_user d where d.work_fieldId.id = :idField and d.good <= :goodLess and d.bad>= :badMore"
+			)
+	
+	,
+	@NamedQuery(name="work_field_user.getAllHaveEvalLikelessThanAndDislikeMoreThan",
+	query = "from work_field_user d where d.good <= :goodLess and d.bad>= :badMore"
+			)
+	
+	,
+	@NamedQuery(name="work_field_user.getAllByFieldAndInVacationStateHaveEvalDiffLikeAndDislikeLessThan",
+	query = "from work_field_user d where d.work_fieldId.id = :idField and d.userId.vacationState = :state and (d.good - d.bad)<= :diff"
+			)
+	
+	
+	,
+	@NamedQuery(name="work_field_user.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThan",
+	query = "from work_field_user d where  d.userId.vacationState = :state and (d.good - d.bad)<= :diff"
+			)
+	
+	,
+	@NamedQuery(name="work_field_user.getAllHaveEvalDiffLikeAndDislikeMoreThan",
+	query = "from work_field_user d where  (d.good - d.bad)>= :diff"
+			)
+	
+	,
+	@NamedQuery(name="work_field_user.getAllHaveEvalDiffLikeAndDislikeLessThan",
+	query = "from work_field_user d where (d.good - d.bad)<= :diff"
+			)
+	
 })
 
 @Entity
@@ -64,6 +105,24 @@ public class work_field_user {
 	@JoinColumn(name = "userId")
 	private user userId;
 	
+	
+	
+	@Column(name = "good")
+	private Integer good;
+	
+	
+	@Column(name = "bad")
+	private Integer bad;
+	
+	
+
+
+	public static int New_EqualOrLessThanLike=3;
+	public static int New_EqualOrMoreThanDisLike=-1;
+	public static int HotListEqualOrMoreThan=3;
+	public static int ColdListEqualOrLess=2;
+	public static int OldLessThanOrEqual=-4;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -82,6 +141,19 @@ public class work_field_user {
 	public void setUserId(user userId) {
 		this.userId = userId;
 	}
+	public Integer getGood() {
+		return good;
+	}
+	public void setGood(Integer good) {
+		this.good = good;
+	}
+	public Integer getBad() {
+		return bad;
+	}
+	public void setBad(Integer bad) {
+		this.bad = bad;
+	}
+	
 
 	
 

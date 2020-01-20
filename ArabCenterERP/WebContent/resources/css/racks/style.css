@@ -442,7 +442,6 @@ th {
 }
 
 * {
-  box-sizing: border-box; 
 }
 
 *:before,
@@ -1476,7 +1475,7 @@ text-align: center;
     width: 75%; 
 }
   .col-md-10 {
-    width: 83.33333%; 
+    width: 83.33333%;
 }
   .col-md-11 {
     width: 91.66667%; 
@@ -4699,11 +4698,10 @@ a.list-group-item-danger {
 }
 
 .panel-body {
-  width: 39%;
+  /* width: 39%; */
   text-align: right;
-  padding: 15px;
+  /* padding: 15px; */
   direction: rtl;
-  
 }
   .panel-body:before, .panel-body:after {
     content: " ";
@@ -12528,14 +12526,9 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 
 * {
-  outline: 0 !important; 
 }
 
 body {
-  background: #ffffff;
-  font-family: 'Noto Naskh Arabic', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  
 }
 
 p {
@@ -12617,7 +12610,7 @@ a {
 }
 
 .panel-default {
-  border: 0 !important; 
+  /* border: 0 !important; */
 }
 
 .panel-footer {
@@ -18353,9 +18346,8 @@ select[data-ui="placeholder"] option[value=""] {
 }
 
 .panel {
-  border: none !important;
-  width: 100%;
-  
+  /* border: none !important; */
+  /* width: 100%; */
 }
 
 .no-spin, .no-spin::-webkit-inner-spin-button, .no-spin::-webkit-outer-spin-button {
@@ -18731,11 +18723,10 @@ div.erpSystem-is-theme-loaded {
   color: #fff; 
 }
 .containerLogin{
-	padding-top: 7%;
-    box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #9e9c9c, 0 0 0px #b9b9b900;
-    background: linear-gradient(rgb(255, 255, 255) 0px, rgb(249, 249, 249) 95%, rgb(243, 243, 243) 0px);
-    height: 443px;
-
+	padding-top: 3%;
+	box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #9e9c9c, 0 0 0px #b9b9b900;
+	background: linear-gradient(rgb(255, 255, 255) 0px, rgb(249, 249, 249) 95%, rgb(243, 243, 243) 0px);
+	height: 443px;
 }
 .erpSystem-no-touch .erpSystem-menu-item-link:focus {
   background-color: #2cabe3;

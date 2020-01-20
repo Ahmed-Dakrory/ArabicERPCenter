@@ -72,6 +72,10 @@ public class work_field {
 
 	public static int work_field_TYPE_SKILL=0;
 	public static int work_field_TYPE_EX_SKILL=1;
+	
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -101,9 +105,5 @@ public class work_field {
 	
 
 
-	@Override
-    public String toString() {
-        return String.valueOf(id);
-    }
-
+	
 }

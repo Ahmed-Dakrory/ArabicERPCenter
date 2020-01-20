@@ -55,6 +55,9 @@ public class user {
 	@GeneratedValue
 	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "vacationState")
+	private Integer vacationState;
 
 	@Column(name = "name")
 	private String name;
@@ -80,6 +83,11 @@ public class user {
 	public static int ROLE_GeneralManager=1;
 	public static int ROLE_MoneyManager=2;
 	public static int ROLE_Freelancer=3;
+	
+	
+
+	public static int VACATIONSTATE_In_VACATION=0;
+	public static int VACATIONSTATE_Avaialbe=1;
 
 	@Column(name = "role")
 	private Integer role;
@@ -460,6 +468,20 @@ public class user {
 
 	public void setNationalId(String nationalId) {
 		this.nationalId = nationalId;
+	}
+
+
+
+
+	public Integer getVacationState() {
+		return vacationState;
+	}
+
+
+
+
+	public void setVacationState(Integer vacationState) {
+		this.vacationState = vacationState;
 	}
 
 

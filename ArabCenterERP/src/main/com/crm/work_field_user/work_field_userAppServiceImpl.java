@@ -247,6 +247,86 @@ public class work_field_userAppServiceImpl implements Iwork_field_userAppService
 	}
 
 
+
+	@Override
+	public List<work_field_user> getAllUnique() {
+		try{
+			List<work_field_user> course=work_field_userDataRepository.getAllUnique();
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<work_field_user> getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThanUnique(int state, int diff) {
+		try{
+			List<work_field_user> so=work_field_userDataRepository.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThanUnique(state,  diff);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<work_field_user> getAllHaveEvalLikelessThanAndDislikeMoreThanUnique(int goodLess, int badMore) {
+		try{
+			List<work_field_user> so=work_field_userDataRepository.getAllHaveEvalLikelessThanAndDislikeMoreThanUnique(goodLess,  badMore);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeMoreThanUnique(int diff) {
+		try{
+			List<work_field_user> so=work_field_userDataRepository.getAllHaveEvalDiffLikeAndDislikeMoreThanUnique( diff);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeLessThanUnique(int diff) {
+		try{
+			List<work_field_user> so=work_field_userDataRepository.getAllHaveEvalDiffLikeAndDislikeLessThanUnique( diff);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
 	
 }
 		

@@ -202,6 +202,61 @@ public class work_field_userRepositoryImpl implements work_field_userRepository{
 			 return results;
 	}
 
+	@Override
+	public List<work_field_user> getAllUnique() {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllUnique");
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<work_field_user> getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThanUnique(int state, int diff) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThanUnique").setInteger("state",state).setInteger("diff", diff);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllHaveEvalLikelessThanAndDislikeMoreThanUnique(int goodLess, int badMore) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalLikelessThanAndDislikeMoreThanUnique").setInteger("goodLess",goodLess).setInteger("badMore",badMore);
+
+		 @SuppressWarnings("unchecked")
+		List<work_field_user> results=query.list();
+		 
+			 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeMoreThanUnique(int diff) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalDiffLikeAndDislikeMoreThan").setInteger("diff", diff);
+
+				 @SuppressWarnings("unchecked")
+				List<work_field_user> results=query.list();
+				 
+					 return results;
+	}
+
+	@Override
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeLessThanUnique(int diff) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalDiffLikeAndDislikeLessThanUnique").setInteger("diff", diff);
+
+				 @SuppressWarnings("unchecked")
+				List<work_field_user> results=query.list();
+				 
+					 return results;
+	}
+
 
 
 }

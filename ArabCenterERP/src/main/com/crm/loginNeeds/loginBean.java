@@ -84,7 +84,7 @@ public class loginBean implements Serializable{
 			
 
 			
-						boolean success = authenticationService.login(theUserOfThisAccount.getEmail(), passwordOfUserLoggedIn);
+						boolean success = authenticationService.login(theUserOfThisAccount.getUserName(), passwordOfUserLoggedIn);
 						if (success) {
 
 								FacesContext.getCurrentInstance().getExternalContext()
@@ -145,7 +145,7 @@ public class loginBean implements Serializable{
 		
 		if(ok){
 			
-				theUserOfThisAccount2.setPassword(new  Md5PasswordEncoder().encodePassword(passwordOfRegisteration,theUserOfThisAccount2.getEmail()));
+				theUserOfThisAccount2.setPassword(new  Md5PasswordEncoder().encodePassword(passwordOfRegisteration,theUserOfThisAccount2.getUserName()));
 				userDataFacede.adduser(theUserOfThisAccount2);
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Success',\r\n" + 

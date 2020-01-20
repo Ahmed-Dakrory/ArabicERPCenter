@@ -23,6 +23,22 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/applicationContext.xml</param-value>
   </context-param>
+  
+  
+  
+  
+ <servlet>
+ <servlet-name>DynamicImageServlet</servlet-name>
+ <servlet-class>main.com.crm.tools.DynamicImageServlet</servlet-class>
+ <load-on-startup>1</load-on-startup>
+ </servlet>
+ 
+ <servlet-mapping>
+ <servlet-name>DynamicImageServlet</servlet-name>
+ <url-pattern>/images/*</url-pattern>
+ </servlet-mapping>
+ 
+ 
   <context-param>
     <param-name>javax.faces.VALIDATE_EMPTY_FIELDS</param-name>
     <param-value>true</param-value>

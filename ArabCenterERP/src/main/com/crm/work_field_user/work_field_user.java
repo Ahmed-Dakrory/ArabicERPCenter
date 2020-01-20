@@ -29,6 +29,10 @@ import main.com.crm.work_field.work_field;
 		     query="SELECT c FROM work_field_user c"
 		     )
 	,
+	@NamedQuery(name="work_field_user.getAllUnique",
+    query="SELECT c FROM work_field_user c group by c.userId.id"
+    )
+	,
 	@NamedQuery(name="work_field_user.getById",
 	query = "from work_field_user d where d.id = :id"
 			)
@@ -65,6 +69,11 @@ import main.com.crm.work_field.work_field;
 			)
 	
 	,
+	@NamedQuery(name="work_field_user.getAllHaveEvalLikelessThanAndDislikeMoreThanUnique",
+	query = "from work_field_user d where d.good <= :goodLess and d.bad>= :badMore group by d.userId.id"
+			)
+	
+	,
 	@NamedQuery(name="work_field_user.getAllByFieldAndInVacationStateHaveEvalDiffLikeAndDislikeLessThan",
 	query = "from work_field_user d where d.work_fieldId.id = :idField and d.userId.vacationState = :state and (d.good - d.bad)<= :diff"
 			)
@@ -76,13 +85,29 @@ import main.com.crm.work_field.work_field;
 			)
 	
 	,
+	@NamedQuery(name="work_field_user.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThanUnique",
+	query = "from work_field_user d where  d.userId.vacationState = :state and (d.good - d.bad)<= :diff group by d.userId.id"
+			)
+	
+	,
 	@NamedQuery(name="work_field_user.getAllHaveEvalDiffLikeAndDislikeMoreThan",
 	query = "from work_field_user d where  (d.good - d.bad)>= :diff"
 			)
 	
 	,
+	@NamedQuery(name="work_field_user.getAllHaveEvalDiffLikeAndDislikeMoreThanUnique",
+	query = "from work_field_user d where  (d.good - d.bad)>= :diff group by d.userId.id"
+			)
+	
+	,
 	@NamedQuery(name="work_field_user.getAllHaveEvalDiffLikeAndDislikeLessThan",
 	query = "from work_field_user d where (d.good - d.bad)<= :diff"
+			)
+	
+	
+	,
+	@NamedQuery(name="work_field_user.getAllHaveEvalDiffLikeAndDislikeLessThanUnique",
+	query = "from work_field_user d where (d.good - d.bad)<= :diff group by d.userId.id"
 			)
 	
 })

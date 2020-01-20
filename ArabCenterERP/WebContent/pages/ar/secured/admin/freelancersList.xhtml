@@ -166,7 +166,7 @@ background: #dee2e6;
 }
 
 .fa-UserFreelancerData{
-	font-size: 22px;
+	font-size: 22px!important;
 }
 </style>
 		<h2>قائمة المستقلين:</h2>
@@ -207,7 +207,7 @@ background: #dee2e6;
 
     <div id="collapseOneTotal" class="collapse show" aria-labelledby="headingOneTotal" data-parent="#accordionExample">
       <div class="card-body">
-      <p:accordionPanel dynamic="true" cache="true" var="fieldUser" value="#{admin_freelancerBean.newListUsers}" >
+      <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}"  dynamic="true" cache="true" var="fieldUser" value="#{admin_freelancerBean.newListUsers}" >
       <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" />
         <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
             <div class="userTobeModifiedContent" columns="2" cellpadding="10">
@@ -217,7 +217,7 @@ background: #dee2e6;
            			<div class="row">
            			<div class=" hidden-xs">
 		              <figure class="thumbnail">
-		                <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+		                <h:graphicImage class="img-responsive" value="/images/?file=#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.image}" />
 		                <figcaption class="text-center">#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.name}</figcaption>
 		              </figure>
 		            </div>
@@ -227,11 +227,11 @@ background: #dee2e6;
            			<div class="row ">
            			 <header class="text-left">
 			                    <div class="comment-user">
-			                    <div class="col-md-6 ">
-			                    <i class="fa fa-thumbs-down fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.bad==0?'#DDDDDD':'#327edc'}"> #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.bad}
+			                    <div class="col-md-6 buttonStateu" id="likeNumberData">
+			                    <i class=" fa fa-thumbs-down fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.bad==0?'#DDDDDD':'#327edc'}"> #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.bad}
 			                    </i>
 			                    </div>
-								<div class="col-md-6 ">		  
+								<div class="col-md-6 buttonStateu" id="dislikeNumberData">		  
 								<i class="fa fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.good==0?'#DDDDDD':'#327edc'}"> #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.good}
 			                    </i>
 			                    </div>
@@ -246,19 +246,21 @@ background: #dee2e6;
 				</div>
 				</div>
 				
-				 <div class="col-md-6">
+				 <div class="col-md-6 likeDislikePart1">
 				 
-				  <div class="comment-list row">
-			                    <div class="col-md-2 ">
-			                    <i class="fa fa-thumbs-down fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState==1?'#DDDDDD':'#327edc'}"> أعجاب
+				  <div  class="comment-list  row ">
+			                    <div class="col-md-3 ">
+			                    <i onclick="makeLike();" id="likeButton" class="buttonStateu fa  fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState!=1?'#DDDDDD':'#327edc'}"> أعجاب
+			                    </i>
+			                    </div> 
+								<div class="col-md-4 ">	
+								<i onclick="makeDisLike();" id="dislikeButton" class="buttonStateu fa  fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState!=2?'#DDDDDD':'#327edc'}"> غير معجب
+			                    
 			                    </i>
 			                    </div>
-								<div class="col-md-2 ">		  
-								<i class="fa fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState==2?'#DDDDDD':'#327edc'}"> غير معجب
-			                    </i>
-			                    </div>
-			                    <p:commandButton value="تعديل حساب الشخص " actionListener="#{admin_freelancerBean.selectedUserToBeModified(admin_freelancerBean.selectedUserToBeModified.exfieldUsers.user.id)}" class="btn btn-ghost btn-primary btn-block"/>
-				  				
+			                    <div class="col-md-2 ">		</div>
+			                    <div class="col-md-2 ">		</div>
+
 				  </div>
 				  
 				  <br></br>
@@ -272,7 +274,7 @@ background: #dee2e6;
 			            <div class="col-md-2 col-sm-2 hidden-xs">
 			              <figure class="thumbnail">
 			                <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
-			                <figcaption class="text-center">username</figcaption>
+			               
 			              </figure>
 			            </div>
 			            <div class="col-md-10 col-sm-10">
@@ -297,7 +299,9 @@ background: #dee2e6;
 			        </section>
 			    </div>
 				
-				
+				<div class="col-md-4 col-xs-12"> 
+			                    <h:commandButton value="تعديل حساب الشخص " actionListener="#{admin_freelancerBean.modifyFreelancer(admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.id)}" class="btn-block btn btn-ghost btn-primary "/>
+				  				</div>
 				
            </div>
            
@@ -463,10 +467,6 @@ background: #dee2e6;
 
 <br></br>
 
-<div class="col-md-4 col-xs-12">
-<p:commandButton value="حفظ التعديلات" actionListener="#{admin_freelancerBean.addNewFreelancer()}" class="btn btn-ghost btn-primary btn-block"/>
-</div>
-
 
 
 
@@ -475,11 +475,33 @@ background: #dee2e6;
 		</div>
 	
 	</div>
+	
+	<h:form>
+	<p:remoteCommand name="makeLike" action="#{admin_freelancerBean.makeLike()}"></p:remoteCommand>
+	<p:remoteCommand name="makeDisLike" action="#{admin_freelancerBean.makeDisLike()}"></p:remoteCommand> 
+	</h:form>
 	<script>
-	function reloadAllselectedUserToBeModified(){
+	
+	
+	
+	
+	function reloadLikeDislikePart(){
+	
 		
-		 $('.userTobeModifiedContent').load(url); //url which returns you the content of the html.
+		
+
+		$(".userTobeModifiedContent").load(location.href + ' .userTobeModifiedContent');
+		
+		
+		
+		
 	}
+	function reloadAllselectedUserToBeModified(){
+		$(".userTobeModifiedContent").load(location.href + ' .userTobeModifiedContent');
+		 
+	}
+	
+
 	</script>
 	</ui:define>
 	

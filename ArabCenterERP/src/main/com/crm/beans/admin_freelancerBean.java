@@ -3,6 +3,7 @@ package main.com.crm.beans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +14,10 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.TabChangeEvent;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
+import main.com.crm.fieldLike.field_like;
+import main.com.crm.fieldLike.field_likeAppServiceImpl;
 import main.com.crm.loginNeeds.user;
 import main.com.crm.models.fieldMainFields;
 import main.com.crm.models.userModificationFreelancer;
@@ -41,7 +45,11 @@ public class admin_freelancerBean implements Serializable{
 	
 
 	@ManagedProperty(value = "#{work_field_userFacadeImpl}")
-	private work_field_userAppServiceImpl work_field_userDataFacede; 
+	private work_field_userAppServiceImpl work_field_userDataFacede;
+	
+
+	@ManagedProperty(value = "#{field_likeFacadeImpl}")
+	private field_likeAppServiceImpl field_likeDataFacede;
 	
 	
 	
@@ -75,6 +83,8 @@ public class admin_freelancerBean implements Serializable{
 
     private userModificationFreelancer selectedUserToBeModified;
     
+    
+    private int activeIndex=-1;
 	@PostConstruct
 	public void init() {
 		allFields= work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
@@ -99,10 +109,56 @@ public class admin_freelancerBean implements Serializable{
 		comments.add("please modify it3");
 		comments.add("please modify it1");
 		comments.add("please modify it2");
-		selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.IsLike);
-
+		
+		field_like fLike =  field_likeDataFacede.getByUserMarkedAndWorkFieldUser(loginBean.getTheUserOfThisAccount().getId(), wFU.getId());
+		
+		if(fLike!=null) {
+			if(fLike.getType()==userModificationFreelancer.IsLike) {
+				selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.IsLike);
+					
+			}else {
+				selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.IsDisLike);
+					
+			}
+		}else {
+			selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.NoAction);
+				
+		}
 		
 		PrimeFaces.current().executeScript("reloadAllselectedUserToBeModified();");
+		System.out.println("RefreshedAhmed");
+	}
+	
+public void selectedUserToBeModifiedWithLike(int idFieldUser) {
+		
+		work_field_user wFU = work_field_userDataFacede.getById(idFieldUser);
+		List<String>comments=new ArrayList<String>();
+		comments.add("please modify it8");
+		comments.add("please modify it7");
+		comments.add("please modify it6");
+		comments.add("please modify it5");
+		comments.add("please modify it4");
+		comments.add("please modify it3");
+		comments.add("please modify it1");
+		comments.add("please modify it2");
+		
+		field_like fLike =  field_likeDataFacede.getByUserMarkedAndWorkFieldUser(loginBean.getTheUserOfThisAccount().getId(), wFU.getId());
+		
+		if(fLike!=null) {
+			if(fLike.getType()==userModificationFreelancer.IsLike) {
+				selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.IsLike);
+					
+			}else {
+				selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.IsDisLike);
+					
+			}
+		}else {
+			selectedUserToBeModified=new userModificationFreelancer(wFU, loginBean.getTheUserOfThisAccount(), "99", "99", "99", "99", comments,userModificationFreelancer.NoAction);
+				
+		}
+		
+		PrimeFaces.current().executeScript("reloadLikeDislikePart();");
+		System.out.println("RefreshedAhmed");
 	}
 	
 	public void modifyFreelancer(int userId) {
@@ -142,12 +198,12 @@ public class admin_freelancerBean implements Serializable{
 		
 		
 		listOfAllMainGateg=work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
-		listOfAllUser=work_field_userDataFacede.getAll();
+		listOfAllUser=work_field_userDataFacede.getAllUnique();
 		
-		newListUsers = work_field_userDataFacede.getAllHaveEvalLikelessThanAndDislikeMoreThan( work_field_user.New_EqualOrLessThanLike, work_field_user.New_EqualOrMoreThanDisLike);
-		hotListUsers = work_field_userDataFacede.getAllHaveEvalDiffLikeAndDislikeMoreThan( work_field_user.HotListEqualOrMoreThan);
-		coldListUsers = work_field_userDataFacede.getAllHaveEvalDiffLikeAndDislikeLessThan( work_field_user.ColdListEqualOrLess);
-		oldListUsers = work_field_userDataFacede.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThan( user.VACATIONSTATE_In_VACATION,work_field_user.OldLessThanOrEqual);
+		newListUsers = work_field_userDataFacede.getAllHaveEvalLikelessThanAndDislikeMoreThanUnique( work_field_user.New_EqualOrLessThanLike, work_field_user.New_EqualOrMoreThanDisLike);
+		hotListUsers = work_field_userDataFacede.getAllHaveEvalDiffLikeAndDislikeMoreThanUnique( work_field_user.HotListEqualOrMoreThan);
+		coldListUsers = work_field_userDataFacede.getAllHaveEvalDiffLikeAndDislikeLessThanUnique( work_field_user.ColdListEqualOrLess);
+		oldListUsers = work_field_userDataFacede.getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThanUnique( user.VACATIONSTATE_In_VACATION,work_field_user.OldLessThanOrEqual);
 
 		
 		listOfAllMainGategStructure=new ArrayList<fieldMainFields>();
@@ -159,6 +215,63 @@ public class admin_freelancerBean implements Serializable{
 		  
 	}
 	
+	public void makeLike() {
+		System.out.println("AhmedDoneLike");
+		work_field_user wfu=work_field_userDataFacede.getById(selectedUserToBeModified.getExfieldUsers().getId());
+		field_like fLike =  field_likeDataFacede.getByUserMarkedAndWorkFieldUser(loginBean.getTheUserOfThisAccount().getId(), wfu.getId());
+		if(fLike!=null) {
+			if(fLike.getType()==userModificationFreelancer.IsLike) {
+				field_likeDataFacede.delete(fLike);
+				wfu.setGood(wfu.getGood()-1);
+				work_field_userDataFacede.addwork_field_user(wfu);
+			}else {
+				fLike.setType(userModificationFreelancer.IsLike);
+				field_likeDataFacede.addfield_like(fLike);
+				wfu.setGood(wfu.getGood()+1);
+				wfu.setBad(wfu.getBad()-1);
+				work_field_userDataFacede.addwork_field_user(wfu);
+			}
+		}else {
+			fLike=new field_like();
+			fLike.setFieldUserId(wfu);
+			fLike.setType(userModificationFreelancer.IsLike);
+			fLike.setUserIdMarker(loginBean.getTheUserOfThisAccount());
+			field_likeDataFacede.addfield_like(fLike);
+			wfu.setGood(wfu.getGood()+1);
+			work_field_userDataFacede.addwork_field_user(wfu);
+		}
+		selectedUserToBeModifiedWithLike(wfu.getId());
+	}
+	
+	
+	public void makeDisLike() {
+		System.out.println("AhmedDoneDisLike");
+		work_field_user wfu=work_field_userDataFacede.getById(selectedUserToBeModified.getExfieldUsers().getId());
+		
+		field_like fLike =  field_likeDataFacede.getByUserMarkedAndWorkFieldUser(loginBean.getTheUserOfThisAccount().getId(), wfu.getId());
+		if(fLike!=null) {
+			if(fLike.getType()==userModificationFreelancer.IsDisLike) {
+				field_likeDataFacede.delete(fLike);
+				wfu.setBad(wfu.getBad()-1);
+				work_field_userDataFacede.addwork_field_user(wfu);
+			}else {
+				fLike.setType(userModificationFreelancer.IsDisLike);
+				field_likeDataFacede.addfield_like(fLike);
+				wfu.setBad(wfu.getBad()+1);
+				wfu.setGood(wfu.getGood()-1);
+				work_field_userDataFacede.addwork_field_user(wfu);
+			}
+		}else {
+			fLike=new field_like();
+			fLike.setFieldUserId(wfu);
+			fLike.setType(userModificationFreelancer.IsDisLike);
+			fLike.setUserIdMarker(loginBean.getTheUserOfThisAccount());
+			field_likeDataFacede.addfield_like(fLike);
+			wfu.setBad(wfu.getBad()+1);
+			work_field_userDataFacede.addwork_field_user(wfu);
+		}
+		selectedUserToBeModifiedWithLike(wfu.getId());
+	}
 	
 	public void refresh(){
 		allFields= work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
@@ -192,7 +305,10 @@ public class admin_freelancerBean implements Serializable{
 	
 	
 
-	public void addNewFreelancer() {
+	public void editNewFreelancer() {
+		
+		selectedFreelancer.setLastUpdate(Calendar.getInstance());
+		
 		loginBean.getUserDataFacede().adduser(selectedFreelancer);
 		List<work_field_user> deletedworkFieldForThisUser = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_SKILL);
 		
@@ -211,6 +327,8 @@ public class admin_freelancerBean implements Serializable{
 			work_field_user workFieldUser=new work_field_user();
 			workFieldUser.setUserId(selectedFreelancer);
 			workFieldUser.setWork_fieldId(wf);
+			workFieldUser.setGood(0);
+			workFieldUser.setBad(0);
 
 			work_field_userDataFacede.addwork_field_user(workFieldUser);
 			
@@ -224,7 +342,75 @@ public class admin_freelancerBean implements Serializable{
 			work_field_user workFieldUser=new work_field_user();
 			workFieldUser.setUserId(selectedFreelancer);
 			workFieldUser.setWork_fieldId(wf);
-
+			workFieldUser.setGood(0);
+			workFieldUser.setBad(0);
+			
+			work_field_userDataFacede.addwork_field_user(workFieldUser);
+			
+		
+			
+		}
+		}
+		
+		try {
+			
+			FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/ar/secured/admin/freelancersList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void addNewFreelancer() {
+		selectedFreelancer.setActive(1);
+		selectedFreelancer.setVacationState(user.VACATIONSTATE_Avaialbe);
+		selectedFreelancer.setRole(user.ROLE_Freelancer);
+		selectedFreelancer.setCreatedDate(Calendar.getInstance());
+		selectedFreelancer.setPassword(new  Md5PasswordEncoder().encodePassword(selectedFreelancer.getUserName(),selectedFreelancer.getUserName()));
+		
+		selectedFreelancer.setLastUpdate(Calendar.getInstance());
+		
+		loginBean.getUserDataFacede().adduser(selectedFreelancer);
+		List<work_field_user> deletedworkFieldForThisUser = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_SKILL);
+		
+		if(deletedworkFieldForThisUser!=null) {
+		deletedworkFieldForThisUser.addAll(work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_EX_SKILL));
+		System.out.println("AhmedSize: "+deletedworkFieldForThisUser.size());
+		for(int i=0;i<deletedworkFieldForThisUser.size();i++) {
+			work_field_userDataFacede.delete(deletedworkFieldForThisUser.get(i));
+		}
+		}
+		
+		if(selectedSkills!=null) {	
+	    	System.out.println("Ahmed3: "+selectedSkills.size());
+		for(int i=0;i<selectedSkills.size();i++) {
+			work_field wf =work_fieldDataFacede.getByField(selectedSkills.get(i));
+			work_field_user workFieldUser=new work_field_user();
+			workFieldUser.setUserId(selectedFreelancer);
+			workFieldUser.setWork_fieldId(wf);
+			workFieldUser.setGood(0);
+			workFieldUser.setBad(0);
+			
+			
+			work_field_userDataFacede.addwork_field_user(workFieldUser);
+			
+		}
+		
+	}
+		if(selectedEx_Skills!=null) {
+		for(int i=0;i<selectedEx_Skills.size();i++) {
+			
+			work_field wf =work_fieldDataFacede.getByField(selectedEx_Skills.get(i));
+			work_field_user workFieldUser=new work_field_user();
+			workFieldUser.setUserId(selectedFreelancer);
+			workFieldUser.setWork_fieldId(wf);
+			workFieldUser.setGood(0);
+			workFieldUser.setBad(0);
+			
+			
 			work_field_userDataFacede.addwork_field_user(workFieldUser);
 			
 		
@@ -377,6 +563,22 @@ public class admin_freelancerBean implements Serializable{
 
 	public void setSelectedUserToBeModified(userModificationFreelancer selectedUserToBeModified) {
 		this.selectedUserToBeModified = selectedUserToBeModified;
+	}
+
+	public field_likeAppServiceImpl getField_likeDataFacede() {
+		return field_likeDataFacede;
+	}
+
+	public void setField_likeDataFacede(field_likeAppServiceImpl field_likeDataFacede) {
+		this.field_likeDataFacede = field_likeDataFacede;
+	}
+
+	public int getActiveIndex() {
+		return activeIndex;
+	}
+
+	public void setActiveIndex(int activeIndex) {
+		this.activeIndex = activeIndex;
 	}
      
 	

@@ -13,6 +13,7 @@ public interface Iwork_field_userAppService {
 
 
 	public List<work_field_user> getAll();
+	public List<work_field_user> getAllUnique();
 	public List<work_field_user> getAllByField(int id_field);
 	public work_field_user addwork_field_user(work_field_user data);
 	public work_field_user getById(int id);
@@ -21,11 +22,16 @@ public interface Iwork_field_userAppService {
 	public List<work_field_user> getAllByFieldHaveEvalDiffLikeAndDislikeLessThan(int idField,int diff);
 	public List<work_field_user> getAllByFieldAndInVacationStateHaveEvalDiffLikeAndDislikeLessThan(int idField,int state,int diff);
 	public List<work_field_user> getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThan(int state,int diff);
+	public List<work_field_user> getAllInVacationStateHaveEvalDiffLikeAndDislikeLessThanUnique(int state,int diff);
 	
+
 	public List<work_field_user> getAllHaveEvalLikelessThanAndDislikeMoreThan(int goodLess,int badMore);
+	public List<work_field_user> getAllHaveEvalLikelessThanAndDislikeMoreThanUnique(int goodLess,int badMore);
 	public List<work_field_user> getAllByFieldHaveEvalLikelessThanAndDislikeMoreThan(int idField,int goodLess,int badMore);
-	
+
 	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeMoreThan(int diff);
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeMoreThanUnique(int diff);
 	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeLessThan(int diff);
+	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeLessThanUnique(int diff);
 	public boolean delete(work_field_user data);
 }

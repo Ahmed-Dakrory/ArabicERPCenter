@@ -1,6 +1,6 @@
 package main.com.crm.loginNeeds;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -150,10 +150,10 @@ public class user {
 	
 	
 	@Column(name = "lastUpdate")
-	private Calendar lastUpdate;
+	private Date lastUpdate;
 	
 	@Column(name = "createdDate")
-	private Calendar createdDate;
+	private Date createdDate;
 
 	
 
@@ -289,28 +289,28 @@ public class user {
 
 
 
-	public Calendar getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 
 
 
 
-	public void setLastUpdate(Calendar lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
 
 
 
-	public Calendar getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
 
 
 
-	public void setCreatedDate(Calendar createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 

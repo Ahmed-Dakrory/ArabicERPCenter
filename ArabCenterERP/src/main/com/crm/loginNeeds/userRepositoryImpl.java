@@ -3,7 +3,7 @@
  */
 package main.com.crm.loginNeeds;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -32,7 +32,7 @@ public class userRepositoryImpl implements userRepository{
 	@Override
 	public user adduser(user data) {
 		try{
-			data.setLastUpdate(Calendar.getInstance());
+			data.setLastUpdate(new Date());
 			session = sessionFactory.openSession();
 			Transaction tx1 = session.beginTransaction();
 			session.saveOrUpdate(data);

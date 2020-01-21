@@ -3,7 +3,7 @@ package main.com.crm.beans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +16,8 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.TabChangeEvent;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
+import main.com.crm.fieldComment.fieldcomment;
+import main.com.crm.fieldComment.fieldcommentAppServiceImpl;
 import main.com.crm.fieldLike.field_like;
 import main.com.crm.fieldLike.field_likeAppServiceImpl;
 import main.com.crm.loginNeeds.user;
@@ -51,6 +53,10 @@ public class admin_freelancerBean implements Serializable{
 	@ManagedProperty(value = "#{field_likeFacadeImpl}")
 	private field_likeAppServiceImpl field_likeDataFacede;
 	
+
+	@ManagedProperty(value = "#{fieldcommentFacadeImpl}")
+	private fieldcommentAppServiceImpl fieldcommentDataFacede;
+	
 	
 	
 
@@ -83,13 +89,34 @@ public class admin_freelancerBean implements Serializable{
 
     private userModificationFreelancer selectedUserToBeModified;
     
-    
+    private int indexOfTabOpened;
     private int activeIndex=-1;
+    private String exAddedField;
+    
+    
 	@PostConstruct
 	public void init() {
 		allFields= work_fieldDataFacede.getAllWithType(work_field.work_field_TYPE_SKILL);
 	}
 	
+	
+	public void setIndexOfField(int indexOfField) {
+		indexOfTabOpened=indexOfField;
+		
+		
+	}
+	
+	public void addNewExField() {
+		work_field wf=new work_field();
+		wf.setField(exAddedField);
+		wf.setType(work_field.work_field_TYPE_EX_SKILL);
+		
+		wf.setMainField(work_fieldDataFacede.getById(indexOfTabOpened));
+		work_fieldDataFacede.addwork_field(wf);
+
+		PrimeFaces.current().executeScript("reloadPage();");
+		
+	}
 	 public void onUserTabChange(TabChangeEvent event) {
 		 
 		 int fieldUserId = Integer.valueOf((event.getTab().getTitletip()));
@@ -98,17 +125,9 @@ public class admin_freelancerBean implements Serializable{
 	    }
 	
 	public void selectedUserToBeModified(int idFieldUser) {
-		
+		activeIndex=-1;
 		work_field_user wFU = work_field_userDataFacede.getById(idFieldUser);
-		List<String>comments=new ArrayList<String>();
-		comments.add("please modify it8");
-		comments.add("please modify it7");
-		comments.add("please modify it6");
-		comments.add("please modify it5");
-		comments.add("please modify it4");
-		comments.add("please modify it3");
-		comments.add("please modify it1");
-		comments.add("please modify it2");
+		List<fieldcomment>comments=fieldcommentDataFacede.getAllByFieldUser(wFU.getId());
 		
 		field_like fLike =  field_likeDataFacede.getByUserMarkedAndWorkFieldUser(loginBean.getTheUserOfThisAccount().getId(), wFU.getId());
 		
@@ -130,17 +149,10 @@ public class admin_freelancerBean implements Serializable{
 	}
 	
 public void selectedUserToBeModifiedWithLike(int idFieldUser) {
-		
+		activeIndex=-1;
 		work_field_user wFU = work_field_userDataFacede.getById(idFieldUser);
-		List<String>comments=new ArrayList<String>();
-		comments.add("please modify it8");
-		comments.add("please modify it7");
-		comments.add("please modify it6");
-		comments.add("please modify it5");
-		comments.add("please modify it4");
-		comments.add("please modify it3");
-		comments.add("please modify it1");
-		comments.add("please modify it2");
+		List<fieldcomment>comments=fieldcommentDataFacede.getAllByFieldUser(wFU.getId());
+		
 		
 		field_like fLike =  field_likeDataFacede.getByUserMarkedAndWorkFieldUser(loginBean.getTheUserOfThisAccount().getId(), wFU.getId());
 		
@@ -241,6 +253,8 @@ public void selectedUserToBeModifiedWithLike(int idFieldUser) {
 			work_field_userDataFacede.addwork_field_user(wfu);
 		}
 		selectedUserToBeModifiedWithLike(wfu.getId());
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("#MainForm:accordionMainUsers .userTobeModifiedContent");
+		
 	}
 	
 	
@@ -295,7 +309,7 @@ public void selectedUserToBeModifiedWithLike(int idFieldUser) {
 			
 			}
 		}
-		
+		 
 		
 		}
 	        
@@ -307,7 +321,7 @@ public void selectedUserToBeModifiedWithLike(int idFieldUser) {
 
 	public void editNewFreelancer() {
 		
-		selectedFreelancer.setLastUpdate(Calendar.getInstance());
+		selectedFreelancer.setLastUpdate(new Date());
 		
 		loginBean.getUserDataFacede().adduser(selectedFreelancer);
 		List<work_field_user> deletedworkFieldForThisUser = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_SKILL);
@@ -368,10 +382,10 @@ public void selectedUserToBeModifiedWithLike(int idFieldUser) {
 		selectedFreelancer.setActive(1);
 		selectedFreelancer.setVacationState(user.VACATIONSTATE_Avaialbe);
 		selectedFreelancer.setRole(user.ROLE_Freelancer);
-		selectedFreelancer.setCreatedDate(Calendar.getInstance());
+		selectedFreelancer.setCreatedDate(new Date());
 		selectedFreelancer.setPassword(new  Md5PasswordEncoder().encodePassword(selectedFreelancer.getUserName(),selectedFreelancer.getUserName()));
 		
-		selectedFreelancer.setLastUpdate(Calendar.getInstance());
+		selectedFreelancer.setLastUpdate(new Date());
 		
 		loginBean.getUserDataFacede().adduser(selectedFreelancer);
 		List<work_field_user> deletedworkFieldForThisUser = work_field_userDataFacede.getAllFieldsOfUserOfType(selectedFreelancer.getId(),work_field.work_field_TYPE_SKILL);
@@ -579,6 +593,36 @@ public void selectedUserToBeModifiedWithLike(int idFieldUser) {
 
 	public void setActiveIndex(int activeIndex) {
 		this.activeIndex = activeIndex;
+	}
+
+
+	public int getIndexOfTabOpened() {
+		return indexOfTabOpened;
+	}
+
+
+	public void setIndexOfTabOpened(int indexOfTabOpened) {
+		this.indexOfTabOpened = indexOfTabOpened;
+	}
+
+
+	public String getExAddedField() {
+		return exAddedField;
+	}
+
+
+	public void setExAddedField(String exAddedField) {
+		this.exAddedField = exAddedField;
+	}
+
+
+	public fieldcommentAppServiceImpl getFieldcommentDataFacede() {
+		return fieldcommentDataFacede;
+	}
+
+
+	public void setFieldcommentDataFacede(fieldcommentAppServiceImpl fieldcommentDataFacede) {
+		this.fieldcommentDataFacede = fieldcommentDataFacede;
 	}
      
 	

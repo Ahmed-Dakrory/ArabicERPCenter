@@ -1,0 +1,144 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<style>
+	.titleOfUserField{
+	text-align: center;
+    width: fit-content;
+    font-size: 32px;
+    font-family: sans-serif;
+    margin: 28px;
+    font-weight: 700;
+    box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #9e9c9c, 0 0 0px #b9b9b900;
+    background-image: linear-gradient(rgb(255, 255, 255) 0px, rgb(249, 249, 249) 95%, rgb(243, 243, 243) 0px);
+    padding: 62px;
+    padding-top: 4%;
+    padding-bottom: 18%;
+	}
+	
+	.titleOfUserFieldAbout{
+	text-align: right;
+    font-size: 25px;
+    font-family: sans-serif;
+    margin: 28px;
+    font-weight: 300;
+    box-shadow: 1px 3px 1px #d2cdcd, -2px 0px 4px #9e9c9c, 0px 0 0px #b9b9b900;
+    padding: 9px;
+    padding-top: 0%;
+    padding-bottom: 1%;
+    height: 178px;
+	}
+	</style>
+           	<div class="row">
+           		<div class="col-md-2">
+           			<div class="row">
+           			<div class=" hidden-xs">
+		              <figure class="thumbnail">
+		                <h:graphicImage class="img-responsive" value="/images/?file=#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.image}" />
+		                <figcaption class="text-center">#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.name}</figcaption>
+		              </figure>
+		            </div>
+           			</div>
+           			
+           			
+           			<div class="row ">
+           			 <header class="text-left">
+			                   <br></br>
+			                     <i class="c-select__flag flag flag-#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.city}"></i>
+			          
+			                    <h:outputText class="comment-date" value="#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.createdDate}">
+			                    <f:convertDateTime pattern="yyyy/MM/dd"  />
+			                    </h:outputText>
+			                    <i class="fa fa-clock-o"></i> 
+			                  </header>
+					
+               		
+				</div>
+				</div>
+				
+				 <div class="col-md-6 likeDislikePart1">
+				 <div  class=" row ">
+				 <div class="  col-md-3"></div>
+				 <div class="  col-md-3">
+				              <h1 class="titleOfUserField">مجال #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.work_fieldId.field}  </h1>
+				 
+				 </div>
+			       <div class="  col-md-3"></div>
+				  </div>
+				  
+				   <div  class=" comment-list ">
+				   <h2 class="page-header"> نبذه عن: #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.name} </h2>
+				              <div class="titleOfUserFieldAbout">
+				              
+								#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.about}
+				              
+				                </div>
+				 
+				  </div>
+				 <p:panel id="likeDislikeMainForm">
+				  <div  class="comment-list  row ">
+			                    <div class="col-md-3 ">
+			                    <p:commandLink update="likeDislikeMainForm " action="#{admin_freelancerBean.makeLike()}"  id="likeButton" class="buttonStateu fa  fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState!=1?'#DDDDDD':'#327edc'}"> #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.good} أعجاب
+			                    </p:commandLink>
+			                    </div> 
+								<div class="col-md-4 ">	
+								<p:commandLink update="likeDislikeMainForm " action="#{admin_freelancerBean.makeDisLike()}" id="dislikeButton" class="buttonStateu fa  fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState!=2?'#DDDDDD':'#327edc'}">#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.bad} غير معجب
+			                    
+			                    </p:commandLink>
+			                    </div>
+			                    <div class="col-md-2 ">		</div>
+			                    <div class="col-md-2 ">		</div>
+
+				  </div>
+				  </p:panel>
+				  <br></br>
+			      <h2 class="page-header">تعليقات</h2>
+			        <section class="comment-list">
+			          <!-- First Comment -->
+			          
+			          
+			          <ui:repeat var="comment" value="#{admin_freelancerBean.selectedUserToBeModified.comments}">
+			          <article class="row">
+			            <div class="col-md-2 col-sm-2 hidden-xs">
+			              <figure class="thumbnail">
+			                <h:graphicImage class="img-responsive" value="/images/?file=#{comment.user_who_comment.image}" />
+			               
+			              </figure>
+			            </div>
+			            <div class="col-md-10 col-sm-10">
+			              <div class="panel panel-default arrow right">
+			                <div class="panel-body">
+			                  <header class="text-left">
+			                    <div class="comment-user"><i class="fa fa-user"></i> #{comment.user_who_comment.name} </div>
+			                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i>
+			                     <h:outputText class="comment-date" value="#{comment.date}">
+			                    <f:convertDateTime pattern="yyyy/MM/dd"  />
+			                    </h:outputText>
+			                    </time>
+			                  </header>
+			                  <div class="comment-post">
+			                    <p>
+			                    #{comment.comment}
+			                     </p>
+			                  </div>
+			                 </div>
+			              </div>
+			            </div>
+			          </article>
+			          
+			          </ui:repeat>
+			          
+			        </section>
+			    </div>
+				
+				<div class="col-md-4 col-xs-12"> 
+			                    <h:commandButton value="تعديل حساب الشخص " actionListener="#{admin_freelancerBean.modifyFreelancer(admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.id)}" class="btn-block btn btn-ghost btn-primary "/>
+				  				</div>
+				
+           </div>
+          </html>

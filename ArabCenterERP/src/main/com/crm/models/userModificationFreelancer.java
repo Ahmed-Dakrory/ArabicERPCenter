@@ -2,6 +2,7 @@ package main.com.crm.models;
 
 import java.util.List;
 
+import main.com.crm.fieldComment.fieldcomment;
 import main.com.crm.loginNeeds.user;
 import main.com.crm.work_field_user.work_field_user;
 
@@ -12,7 +13,7 @@ String numberOfRequestsDeleivered;
 String numberOfRequestsCurrent;
 String numberOfRequestsCancelled;
 String numberOfRequests;
-List<String>comments;
+List<fieldcomment>comments;
 int likeState=0;
 
 public static Integer NoAction = 0;
@@ -23,7 +24,7 @@ public static Integer IsDisLike = 2;
 
 public userModificationFreelancer(work_field_user exfieldUsers, user mainModifier, String numberOfRequestsDeleivered,
 		String numberOfRequestsCurrent, String numberOfRequestsCancelled, String numberOfRequests,
-		List<String> comments,int likeState) {
+		List<fieldcomment> comments,int likeState) {
 	super();
 	this.exfieldUsers = exfieldUsers;
 	this.mainModifier = mainModifier;
@@ -88,10 +89,10 @@ public String getNumberOfRequests() {
 public void setNumberOfRequests(String numberOfRequests) {
 	this.numberOfRequests = numberOfRequests;
 }
-public List<String> getComments() {
+public List<fieldcomment> getComments() {
 	return comments;
 }
-public void setComments(List<String> comments) {
+public void setComments(List<fieldcomment> comments) {
 	this.comments = comments;
 }
 

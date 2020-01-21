@@ -52,11 +52,8 @@ public class work_field_userRepositoryImpl implements work_field_userRepository{
 
 				 @SuppressWarnings("unchecked")
 				List<work_field_user> results=query.list();
-				 if(results.size()!=0){
-					 return results;
-				 }else{
-					 return null;
-				 }
+
+				 return results;
 	}
 
 	
@@ -109,11 +106,8 @@ public class work_field_userRepositoryImpl implements work_field_userRepository{
 
 		 @SuppressWarnings("unchecked")
 		List<work_field_user> results=query.list();
-		 if(results.size()!=0){
-			 return results;
-		 }else{
-			 return null;
-		 }
+
+		 return results;
 	}
 
 	@Override
@@ -208,11 +202,8 @@ public class work_field_userRepositoryImpl implements work_field_userRepository{
 
 		 @SuppressWarnings("unchecked")
 		List<work_field_user> results=query.list();
-		 if(results.size()!=0){
-			 return results;
-		 }else{
-			 return null;
-		 }
+
+		 return results;
 	}
 
 	@Override
@@ -238,7 +229,7 @@ public class work_field_userRepositoryImpl implements work_field_userRepository{
 	@Override
 	public List<work_field_user> getAllHaveEvalDiffLikeAndDislikeMoreThanUnique(int diff) {
 		// TODO Auto-generated method stub
-				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalDiffLikeAndDislikeMoreThan").setInteger("diff", diff);
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("work_field_user.getAllHaveEvalDiffLikeAndDislikeMoreThanUnique").setInteger("diff", diff);
 
 				 @SuppressWarnings("unchecked")
 				List<work_field_user> results=query.list();

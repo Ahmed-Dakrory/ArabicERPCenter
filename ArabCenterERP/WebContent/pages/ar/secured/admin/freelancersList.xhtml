@@ -168,15 +168,20 @@ background: #dee2e6;
 .fa-UserFreelancerData{
 	font-size: 22px!important;
 }
+
 </style>
 		<h2>قائمة المستقلين:</h2>
 		#{admin_freelancerBean.fetchlistOfAllUserOfGateg()}
-		<h:form >
+		<h:form id="MainForm">
     
     
     
     
     <div class="accordion" id="accordionExample">
+    
+    <!-- Start Of Main Tabs Header -->
+    
+    
   <ul class="nav nav-tabs" id="myTab" role="tablist">
   
   <li class="nav-item ">
@@ -189,122 +194,34 @@ background: #dee2e6;
   </ui:repeat>
   
 </ul>
+<!--End Of Main Tabs Header -->
 
+
+<!--Start Of Main Tabs Containers -->
 <div class="tab-content styleBack" id="myTabContent">
 
   
   <div class="tab-pane fade show active" id="tab2" role="tabpanel" aria-labelledby="cont-tab2">
 	<div class="conatinerForNav">
-	<div class="accordion" id="accordionExample">
+	<div class="accordion" id="accordionExampleMain">
   <div class="card">
-    <div class="card-header" id="headingOneTotal">
+    <div class="card-header" id="headingOneTotalMain">
       <h2 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneTotal" aria-expanded="true" aria-controls="collapseOneTotal">
-          القائمة الجديدة
+          القائمة الجديدة ( #{admin_freelancerBean.newListUsers.size()} )
         </button>
       </h2>
     </div>
 
-    <div id="collapseOneTotal" class="collapse show" aria-labelledby="headingOneTotal" data-parent="#accordionExample">
+    <div id="collapseOneTotal" class="collapse show" aria-labelledby="headingOneTotalMain" data-parent="#accordionExampleMain">
       <div class="card-body">
-      <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}"  dynamic="true" cache="true" var="fieldUser" value="#{admin_freelancerBean.newListUsers}" >
-      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" />
-        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
-            <div class="userTobeModifiedContent" columns="2" cellpadding="10">
-            
-           	<div class="row">
-           		<div class="col-md-1 ">
-           			<div class="row">
-           			<div class=" hidden-xs">
-		              <figure class="thumbnail">
-		                <h:graphicImage class="img-responsive" value="/images/?file=#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.image}" />
-		                <figcaption class="text-center">#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.name}</figcaption>
-		              </figure>
-		            </div>
-           			</div>
-           			
-           			
-           			<div class="row ">
-           			 <header class="text-left">
-			                    <div class="comment-user">
-			                    <div class="col-md-6 buttonStateu" id="likeNumberData">
-			                    <i class=" fa fa-thumbs-down fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.bad==0?'#DDDDDD':'#327edc'}"> #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.bad}
-			                    </i>
-			                    </div>
-								<div class="col-md-6 buttonStateu" id="dislikeNumberData">		  
-								<i class="fa fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.good==0?'#DDDDDD':'#327edc'}"> #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.good}
-			                    </i>
-			                    </div>
-			                     </div>
-			                     <br></br>
-			                     <br></br>
-			                     <i class="c-select__flag flag flag-#{fieldUser.userId.city}"></i>
-			                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-			                  </header>
-					
-               		
-				</div>
-				</div>
-				
-				 <div class="col-md-6 likeDislikePart1">
-				 
-				  <div  class="comment-list  row ">
-			                    <div class="col-md-3 ">
-			                    <i onclick="makeLike();" id="likeButton" class="buttonStateu fa  fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState!=1?'#DDDDDD':'#327edc'}"> أعجاب
-			                    </i>
-			                    </div> 
-								<div class="col-md-4 ">	
-								<i onclick="makeDisLike();" id="dislikeButton" class="buttonStateu fa  fa-thumbs-up fa-UserFreelancerData" style="color:#{admin_freelancerBean.selectedUserToBeModified.likeState!=2?'#DDDDDD':'#327edc'}"> غير معجب
-			                    
-			                    </i>
-			                    </div>
-			                    <div class="col-md-2 ">		</div>
-			                    <div class="col-md-2 ">		</div>
-
-				  </div>
-				  
-				  <br></br>
-			      <h2 class="page-header">تعليقات</h2>
-			        <section class="comment-list">
-			          <!-- First Comment -->
-			          
-			          
-			          <ui:repeat var="comment" value="#{admin_freelancerBean.selectedUserToBeModified.comments}">
-			          <article class="row">
-			            <div class="col-md-2 col-sm-2 hidden-xs">
-			              <figure class="thumbnail">
-			                <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
-			               
-			              </figure>
-			            </div>
-			            <div class="col-md-10 col-sm-10">
-			              <div class="panel panel-default arrow right">
-			                <div class="panel-body">
-			                  <header class="text-left">
-			                    <div class="comment-user"><i class="fa fa-user"></i> محمد علاء</div>
-			                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-			                  </header>
-			                  <div class="comment-post">
-			                    <p>
-			                    #{comment}
-			                     </p>
-			                  </div>
-			                 </div>
-			              </div>
-			            </div>
-			          </article>
-			          
-			          </ui:repeat>
-			          
-			        </section>
-			    </div>
-				
-				<div class="col-md-4 col-xs-12"> 
-			                    <h:commandButton value="تعديل حساب الشخص " actionListener="#{admin_freelancerBean.modifyFreelancer(admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.id)}" class="btn-block btn btn-ghost btn-primary "/>
-				  				</div>
-				
-           </div>
+      <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="accordionMainUsers" dynamic="true" cache="true" var="fieldUser" value="#{admin_freelancerBean.newListUsers}"  >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="accordionMainUsers"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}" id="tab_accordionMainUsers">
+            <div class="userTobeModifiedContent" id="newUserTotalMainList#{fieldUser.id}" columns="2" cellpadding="10">
            
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
            
             </div>
         </p:tab>
@@ -319,43 +236,86 @@ background: #dee2e6;
     <div class="card-header" id="headingTwoTotal">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwoTotal" aria-expanded="false" aria-controls="collapseTwoTotal">
-          القائمة الساخنة
+          القائمة الساخنة ( #{admin_freelancerBean.hotListUsers.size()} )
         </button>
       </h2>
     </div>
     <div id="collapseTwoTotal" class="collapse" aria-labelledby="headingTwoTotal" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="hotMainTotal" dynamic="true" cache="true"
+        var="hotMainTotalfieldUser" value="#{admin_freelancerBean.hotListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="hotMainTotal"/>
+        <p:tab title="#{hotMainTotalfieldUser.userId.userName}" titletip="#{hotMainTotalfieldUser.id}">
+            <div class="userTobeModifiedContent" id="hotUserTotalMainList#{hotMainTotalfieldUser.id}" columns="2" cellpadding="10">
+           
+    
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+    
+    
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+	  </div>
     </div>
   </div>
   <div class="card">
     <div class="card-header" id="headingThreeTotal">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThreeTotal" aria-expanded="false" aria-controls="collapseThreeTotal">
-          القائمة الباردة
+          القائمة الباردة ( #{admin_freelancerBean.coldListUsers.size()} )
         </button>
       </h2>
     </div>
     <div id="collapseThreeTotal" class="collapse" aria-labelledby="headingThreeTotal" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="coldMainTotal" dynamic="true" cache="true" var="fieldUser" value="#{admin_freelancerBean.coldListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="coldMainTotal"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="coldUserTotalMainList#{fieldUser.id}" columns="2" cellpadding="10">
+           
+    
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+           
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+	  </div>
     </div>
   </div>
-  
   <div class="card">
     <div class="card-header" id="headingFourTotal">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFourTotal" aria-expanded="false" aria-controls="collapseFourTotal">
-          الأرشيف
+           الأرشيف( #{admin_freelancerBean.oldListUsers.size()} )
         </button>
       </h2>
     </div>
     <div id="collapseFourTotal" class="collapse" aria-labelledby="headingFourTotal" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="oldMainTotal"  dynamic="true" cache="true" var="fieldUser" value="#{admin_freelancerBean.oldListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="oldMainTotal"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="oldUserTotalMainList#{fieldUser.id}" columns="2" cellpadding="10">
+           
+    
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+           
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+		</div>
     </div>
   </div>
 </div>
@@ -363,95 +323,331 @@ background: #dee2e6;
   
   </div>
   
-   <ui:repeat var="mainGateg" varStatus="stMainGateg" value="#{admin_freelancerBean.listOfAllMainGategStructure}">
-  <div class="tab-pane fade" id="tab-id#{mainGateg.mainField.id}" role="tabpanel" aria-labelledby="cont-tab#{mainGateg.mainField.id}">
-	
-<ul  class="nav nav-tabs" id="myTab1" role="tablist">
-
- <li class="nav-item ">
-    <a class="nav-link navitemLinkExt" id="idNavLinkExt_fieldAll" data-toggle="pill" href="#pills-All" role="tab" aria-controls="pills-All" aria-selected="false"> جميع المستقلين الفرعيين ( #{mainGateg.fieldUsers.size()} )</a>
-  </li>
+  <!--Start Of Repeated Main Tabs Containers -->
+   <ui:repeat var="mainGateg" id="formNewRepeatMainTabs" varStatus="stMainGateg" value="#{admin_freelancerBean.listOfAllMainGategStructure}">
   
-<ui:repeat var="exFieldOfCateg" varStatus="statues" value="#{mainGateg.exfields}">
- <li class="nav-item ">
-    <a class="nav-link navitemLinkExt" id="idNavLinkExt_field#{statues.index}" data-toggle="pill" href="#pills-#{statues.index}" role="tab" aria-controls="pills-#{statues.index}" aria-selected="false">( #{exFieldOfCateg.exfieldUsers.size()} ) #{exFieldOfCateg.field.field}</a>
-  </li>
-</ui:repeat>
-</ul>
+  
+  <!-- Start Of Containers of the mainTabs of ExFields -->
+  <div class="tab-pane fade" id="tab-id#{mainGateg.mainField.id}" role="tabpanel" aria-labelledby="cont-tab#{mainGateg.mainField.id}">
+	 		
+				<div > 
+			                    <p:commandButton value="اضافة مهارة فرعية جديدة " onclick="PF('dlg1').show();" actionListener="#{admin_freelancerBean.setIndexOfField(mainGateg.mainField.id)}" class=" btn btn-ghost btn-primary "/>
+				  				</div>
+  <br></br>
+  
+	<!-- Start of exFields tab header -->
+	<ul  class="nav nav-tabs" id="myTabExtendedFieldMainUl" role="tablist">
+
+	<!-- Start of ExField Tab one Header -->
+	 <li class="nav-item ">
+	    <a class="nav-link navitemLinkExt" id="idNavLinkExt_fieldAll#{mainGateg.mainField.id}" data-toggle="tab" href="#idMainContainerpills-All#{mainGateg.mainField.id}" role="tab" aria-controls="idMainContainerpills-All#{mainGateg.mainField.id}" aria-selected="false"> جميع المستقلين الفرعيين ( #{mainGateg.fieldUsers.size()} )</a>
+	  </li>
+	<!-- End of ExField Tab one Header -->
 	
+	<!-- Start of ExField Tab Repeated Header -->
+	<ui:repeat var="exFieldOfCategHeader" id="formNewRepeatExtendedHeader"  varStatus="statuesExHeader" value="#{mainGateg.exfields}">
+	 <li class="nav-item ">
+	    <a class="nav-link navitemLinkExt" id="idNavLinkExt_field#{exFieldOfCategHeader.field.id}#{statuesExHeader.index}" data-toggle="tab" href="#pillsExtended-#{exFieldOfCategHeader.field.id}#{statuesExHeader.index}" role="tab" aria-controls="pillsExtended-#{exFieldOfCategHeader.field.id}#{statuesExHeader.index}" aria-selected="false">( #{exFieldOfCategHeader.exfieldUsers.size()} ) #{exFieldOfCategHeader.field.field}</a>
+	  </li>
+	</ui:repeat>
+	<!-- End of ExField Tab Repeated Header -->
+	</ul>
+	
+	<!-- End of exFields tab header -->
+	
+	
+	<!-- Start of exFields tab Containers -->
+	<div class="tab-content styleBack" id="myTabContentExtended">
+	
+	<!-- Start of ExField Tab one Container -->
+	<div class="tab-pane fade " id="idMainContainerpills-All#{mainGateg.mainField.id}" role="tabpanel" aria-labelledby="idNavLinkExt_fieldAll#{mainGateg.mainField.id}">
 	<div class="conatinerForNav">
+			
+			<!-- Start of occordion of first total freelancers of mainExtended -->
+			
+			
 	<div class="accordion" id="accordionExample">
   <div class="card">
-    <div class="card-header" id="headingOne">
+    <div class="card-header" id="headingOneTotal">
       <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          القائمة الجديدة
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneTotal" aria-expanded="true" aria-controls="collapseOneTotal">
+            القائمة الجديدة ( #{mainGateg.newListUsers.size()} )  
         </button>
       </h2>
     </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div id="collapseOneTotal" class="collapse show" aria-labelledby="headingOneTotal" data-parent="#accordionExample">
       <div class="card-body">
-      
-      
+      <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exNewTotalOcordion"  dynamic="true" cache="true" var="fieldUser" value="#{mainGateg.newListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="exNewTotalOcordion"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="newUserTotalExtList" columns="2" cellpadding="10">
+           
+           
+           <ui:include  src="userComponent.xhtml"></ui:include>
     
-     
+    
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+
+	</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwoTotal">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwoTotal" aria-expanded="false" aria-controls="collapseTwoTotal">
+              القائمة الساخنة ( #{mainGateg.hotListUsers.size()} )
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwoTotal" class="collapse" aria-labelledby="headingTwoTotal" data-parent="#accordionExample">
+      <div class="card-body">
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exHotTotalOcordion" dynamic="true" cache="true" var="fieldUser" value="#{mainGateg.hotListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="exHotTotalOcordion"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="hotUserTotalExtList" columns="2" cellpadding="10">
+           
+    
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
 	  </div>
     </div>
   </div>
   <div class="card">
-    <div class="card-header" id="headingTwo">
+    <div class="card-header" id="headingThreeTotal">
       <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          القائمة الساخنة
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThreeTotal" aria-expanded="false" aria-controls="collapseThreeTotal">
+          القائمة الباردة ( #{mainGateg.coldListUsers.size()} ) 
         </button>
       </h2>
     </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+    <div id="collapseThreeTotal" class="collapse" aria-labelledby="headingThreeTotal" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exColdTotalOcordion" dynamic="true" cache="true" var="fieldUser" value="#{mainGateg.coldListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" id="exColdTotalOcordion" />
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="coldUserTotalExtList" columns="2" cellpadding="10">
+           
+           
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+           
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+	  </div>
     </div>
   </div>
   <div class="card">
-    <div class="card-header" id="headingThree">
+    <div class="card-header" id="headingFourTotal">
       <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          القائمة الباردة
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFourTotal" aria-expanded="false" aria-controls="collapseFourTotal">
+         الأرشيف  ( #{mainGateg.oldListUsers.size()} ) 
         </button>
       </h2>
     </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+    <div id="collapseFourTotal" class="collapse" aria-labelledby="headingFourTotal" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header" id="headingFour">
-      <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          الأرشيف
-        </button>
-      </h2>
-    </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-      <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exOldTotalOcordion" dynamic="true" cache="true" var="fieldUser" value="#{mainGateg.oldListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="exOldTotalOcordion" />
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="oldUserTotalExtList" columns="2" cellpadding="10">
+           
+           
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+           
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+		</div>
     </div>
   </div>
 </div>
+	
+	
+	
+			
+			
+			<!-- End of occordion of first total freelancers of mainExtended -->
+			
+			
 	</div>
+	</div>
+	<!-- End of ExField Tab one Container -->
+	
+	
+	<!-- Start of Extend Tab repeat Containers -->
+	
+	
+	<ui:repeat var="exFieldOfCateg" id="formNewRepeatExtendedContainers"  varStatus="statues" value="#{mainGateg.exfields}">
+	<div class="tab-pane fade " id="pillsExtended-#{exFieldOfCateg.field.id}#{statues.index}" role="tabpanel" aria-labelledby="idNavLinkExt_field#{exFieldOfCateg.field.id}#{statues.index}">
+	<div class="conatinerForNav">
+	
+	<!-- Start of occordion of Repeated total freelancers of mainExtended -->
+	
+	
+	<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOneTotal">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOneTotal" aria-expanded="true" aria-controls="collapseOneTotal">
+          القائمة الجديدة ( #{exFieldOfCateg.newListUsers.size()} )
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOneTotal" class="collapse show" aria-labelledby="headingOneTotal" data-parent="#accordionExample">
+      <div class="card-body">
+      <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exNewOcordionEx" dynamic="true" cache="true" var="fieldUser" value="#{exFieldOfCateg.newListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="exNewOcordionEx"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="newUserExtList"  columns="2" cellpadding="10">
+           
+           
+           
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+    
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+
+	</div>
+    </div>
   </div>
+  <div class="card">
+    <div class="card-header" id="headingTwoTotal">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwoTotal" aria-expanded="false" aria-controls="collapseTwoTotal">
+          القائمة الساخنة (#{exFieldOfCateg.hotListUsers.size()}) 
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwoTotal" class="collapse" aria-labelledby="headingTwoTotal" data-parent="#accordionExample">
+      <div class="card-body">
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exHotOcordionEx" dynamic="true" cache="true" var="fieldUser" value="#{exFieldOfCateg.hotListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="exHotOcordionEx"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="hotUserExtList"  columns="2" cellpadding="10">
+           
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+           
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+	  </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThreeTotal">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThreeTotal" aria-expanded="false" aria-controls="collapseThreeTotal">
+          القائمة الباردة ( #{exFieldOfCateg.coldListUsers.size()} )
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThreeTotal" class="collapse" aria-labelledby="headingThreeTotal" data-parent="#accordionExample">
+      <div class="card-body">
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exColdOcordionEx" dynamic="true" cache="true" var="fieldUser" value="#{exFieldOfCateg.coldListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="exColdOcordionEx"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="coldUserExtList"  columns="2" cellpadding="10">
+           
+           
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+	  </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingFourTotal">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFourTotal" aria-expanded="false" aria-controls="collapseFourTotal">
+          الأرشيف (#{exFieldOfCateg.oldListUsers.size()}) 
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFourTotal" class="collapse" aria-labelledby="headingFourTotal" data-parent="#accordionExample">
+      <div class="card-body">
+       <p:accordionPanel activeIndex="#{admin_freelancerBean.activeIndex}" id="exOldOcordionEx" dynamic="true" cache="true" var="fieldUser" value="#{exFieldOfCateg.oldListUsers}" >
+      <p:ajax event="tabChange" listener="#{admin_freelancerBean.onUserTabChange}" update="exOldOcordionEx"/>
+        <p:tab title="#{fieldUser.userId.userName}" titletip="#{fieldUser.id}">
+            <div class="userTobeModifiedContent" id="oldUserExtList"  columns="2" cellpadding="10">
+           
+           <ui:include  src="userComponent.xhtml"></ui:include>
+    
+           
+            </div>
+        </p:tab>
+        
+        
+    </p:accordionPanel>
+      
+		</div>
+    </div>
+  </div>
+</div>
+	
+	
+	
+	
+	<!-- End of occordion of Repeated total freelancers of mainExtended -->
+	
+	
+	
+	</div>
+	</div>
+	
+	
+	</ui:repeat>
+	
+	
+	<!-- End of Extend Tab repeat Containers -->
+	</div>
+	<!-- End of exFields tab Containers -->
+	
+	
+  </div>
+  
+  <!-- End of Containers of the mainTabs of ExFields -->
   </ui:repeat>
  
-  
+  <!--End Of Repeated Main Tabs Containers -->
   
  
   
 </div>
+
+<!--End Of Main Tabs Containers -->
 </div>
 
 
@@ -477,12 +673,33 @@ background: #dee2e6;
 	</div>
 	
 	<h:form>
-	<p:remoteCommand name="makeLike" action="#{admin_freelancerBean.makeLike()}"></p:remoteCommand>
-	<p:remoteCommand name="makeDisLike" action="#{admin_freelancerBean.makeDisLike()}"></p:remoteCommand> 
+	
+	<p:dialog header="اضافة مهارة جديدة" widgetVar="dlg1" minHeight="40">
+	<div class="form-group  ">
+		<label>
+		<!-- react-text: 47 -->برجاء ادخال اسم المهارة<!-- /react-text -->
+		<!-- react-text: 48 --> <!-- /react-text -->
+		<em class="text--danger">*</em>
+		
+		</label>
+		<p:inputText required="true"  type="text" class="form-control" placeholder="أكتب اسمك المهارة الفرعية" name="first_name" value="#{admin_freelancerBean.exAddedField}"/>
+		</div>
+		
+		<div class="col-md-4 col-xs-12">
+		<p:commandButton value="اضافة"  actionListener="#{admin_freelancerBean.addNewExField()}" class=" btn btn-ghost btn-primary "/>
+				  				
+</div>
+</p:dialog>
+
+
 	</h:form>
 	<script>
 	
-	
+	function reloadPage(){
+		
+		location.reload();
+		
+	}
 	
 	
 	function reloadLikeDislikePart(){
@@ -490,14 +707,14 @@ background: #dee2e6;
 		
 		
 
-		$(".userTobeModifiedContent").load(location.href + ' .userTobeModifiedContent');
-		
+		//$("#MainForm\\:accordionMainUsers .userTobeModifiedContent").load(location.href + ' #MainForm\\:accordionMainUsers .userTobeModifiedContent');
+		//location.reload();
 		
 		
 		
 	}
 	function reloadAllselectedUserToBeModified(){
-		$(".userTobeModifiedContent").load(location.href + ' .userTobeModifiedContent');
+		//$(".userTobeModifiedContent").load(location.href + ' .userTobeModifiedContent');
 		 
 	}
 	

@@ -23,12 +23,15 @@
     
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet"/>
 
+    <!-- Specific Page Vendor CSS -->
+	<link rel="stylesheet" href="#{resource['css:racks/pnotify.custom.css']}" />
     <link rel="stylesheet" href="#{resource['css:racks/font-awesome.css']}" />
     <link rel="stylesheet" href="#{resource['css:racks/font-awesome.min.css']}" />
    
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+	
     <link rel="stylesheet" href="#{resource['css:racks/style.css']}" />
         
         
@@ -615,6 +618,7 @@ http://jidd6.tk/projects/cryptoCalculator/ </bdi>
  </footer>
 
 <h:outputScript name="js/racks/erpSystem.js"/>
+	<h:outputScript name="js/racks/pnotify.custom.js"/>
        
        <h:form>
 					<p:remoteCommand name="logoutJS" action="#{loginBean.logOut}"></p:remoteCommand>

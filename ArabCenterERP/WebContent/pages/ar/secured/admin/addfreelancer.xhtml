@@ -115,10 +115,13 @@ font-size: 25px;
 		
 		#{admin_freelancerBean.refresh()}
 		<h:form id="formMain">
-    
-    
-    
-    
+      <p:panel id="panel" >
+      
+    <p:growl id="msgs"  >
+<p:autoUpdate />
+</p:growl  >    
+
+
     <div class="accordion" id="accordionExample">
   <div class="card">
     <div class="card-header" id="headingOne">
@@ -141,7 +144,7 @@ font-size: 25px;
 		  </button>
   			</div>
         <h4 class="heada__title pull-right">
-                            مهاراتي
+                            مجالات العمل الرئيسية
            
         </h4>
         
@@ -181,7 +184,7 @@ font-size: 25px;
 		  </button>
   			</div>
   			<h4 class="heada__title pull-right">
-                            المجالات الفرعية
+                            مجالات العمل الفرعية
            
         </h4>
     </div>
@@ -229,7 +232,9 @@ font-size: 25px;
 		<em class="text--danger">*</em>
 		
 		</label>
-		<p:inputText required="true" type="text" class="form-control" placeholder="برجاء كتابة يوزر نيم لا يكون مسجل" name="userName" value="#{admin_freelancerBean.selectedFreelancer.userName}"/>
+		<p:inputText id="username" required="true" type="text" class="form-control" placeholder="برجاء كتابة يوزر نيم لا يكون مسجل" requiredMessage="برجاء كتابة يوزر نيم لا يكون مسجل"  name="userName" value="#{admin_freelancerBean.selectedFreelancer.userName}">
+		<f:validateLength minimum="2" />
+		</p:inputText>
 		</div>
 
 		</div>
@@ -248,7 +253,7 @@ font-size: 25px;
 		<em class="text--danger">*</em>
 		
 		</label>
-		<p:inputText required="true"  type="text" class="form-control" placeholder="أكتب اسمك باللغة العربية" name="first_name" value="#{admin_freelancerBean.selectedFreelancer.name}"/>
+		<p:inputText required="true"  type="text" class="form-control" placeholder="أكتب اسمك باللغة العربية" requiredMessage="أكتب اسمك باللغة العربية" name="first_name" value="#{admin_freelancerBean.selectedFreelancer.name}"/>
 		</div>
 
 		</div>
@@ -534,7 +539,7 @@ font-size: 25px;
 		
 		</label>
 		
-<p:inputTextarea  required="true" type="text" class="form-control" placeholder="برجاء كتابة نبذة " name="about" value="#{admin_freelancerBean.selectedFreelancer.about}" >
+<p:inputTextarea  required="true" type="text" class="form-control" placeholder="برجاء كتابة نبذة " requiredMessage="برجاء كتابة نبذة "  name="about" value="#{admin_freelancerBean.selectedFreelancer.about}" >
 
 </p:inputTextarea>
 		</div>
@@ -633,7 +638,7 @@ font-size: 25px;
 			<span class="fa fa-phone icon iconSize"></span>
 			<em class="text--danger">*</em>
 			
-			<p:inputText required="true"  type="text" class="" placeholder="برجاء كتابة رقم الجوال الخاص بك" name="phoneNumber" value="#{admin_freelancerBean.selectedFreelancer.phone}"/>
+			<p:inputText required="true"  type="text" class="" placeholder="برجاء كتابة رقم الجوال الخاص بك" requiredMessage="برجاء كتابة رقم الجوال الخاص بك"  name="phoneNumber" value="#{admin_freelancerBean.selectedFreelancer.phone}"/>
 			
 			
 	</div>
@@ -666,7 +671,7 @@ font-size: 25px;
 			<span class="fa fa-facebook icon iconSize"></span>
 			
 			<em class="text--danger"></em>
-			<p:inputText required="true"  type="text" class="" placeholder="برجاء كتابة حساب الفيس بوك " name="facebookaccount" value="#{admin_freelancerBean.selectedFreelancer.facebookLink}"/>
+			<p:inputText  type="text" class="" placeholder="برجاء كتابة حساب الفيس بوك " name="facebookaccount" value="#{admin_freelancerBean.selectedFreelancer.facebookLink}"/>
 			
 			
 	</div>
@@ -798,18 +803,29 @@ font-size: 25px;
 <br></br>
 
 <div class="col-md-4 col-xs-12">
-<p:commandButton value="حفظ التعديلات" actionListener="#{admin_freelancerBean.addNewFreelancer()}" class="btn btn-ghost btn-primary btn-block"/>
+
+<p:commandButton    value="حفظ التعديلات" actionListener="#{admin_freelancerBean.addNewFreelancer()}" class="btn btn-ghost btn-primary btn-block">
+												
+												</p:commandButton>
 </div>
 
 
 
-
+</p:panel>
 		</h:form>
 		
 		</div>
 	
 	</div>
-	
+	<script>
+function showLoading(){
+	document.getElementById("fullScreenLoader").style.display = "block";
+}
+
+function dismissLoading(){
+	document.getElementById("fullScreenLoader").style.display = "none";
+}
+</script>
 	</ui:define>
 	
 	

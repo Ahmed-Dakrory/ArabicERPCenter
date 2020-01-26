@@ -23,19 +23,19 @@
 	
 	.titleOfUserFieldAbout{
 	text-align: right;
-    font-size: 25px;
+    font-size: 17px;
     font-family: sans-serif;
-    margin: 28px;
     font-weight: 300;
-    box-shadow: 1px 3px 1px #d2cdcd, -2px 0px 4px #9e9c9c, 0px 0 0px #b9b9b900;
-    padding: 9px;
-    padding-top: 0%;
+    box-shadow: 8px -2px 45px -11px #d2cdcd, 2px 1px 13px -1px #9e9c9c, 0px 0px 0px 0px #b9b9b900;
+    padding: 27px;
+    padding-top: 1%;
     padding-bottom: 1%;
-    height: 178px;
+    border-radius: 15px;
+    height: initial;
 	}
 	</style>
            	<div class="row">
-           		<div class="col-md-2">
+           		<div class="col-md-2 titleOfUserFieldAbout">
            			<div class="row">
            			<div class=" hidden-xs">
 		              <figure class="thumbnail">
@@ -47,7 +47,7 @@
            			
            			
            			<div class="row ">
-           			 <header class="text-left">
+           			 <header class="text-left" style="    text-align: right!important;">
 			                   <br></br>
 			                     <i class="c-select__flag flag flag-#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.city}"></i>
 			          
@@ -55,6 +55,17 @@
 			                    <f:convertDateTime pattern="yyyy/MM/dd"  />
 			                    </h:outputText>
 			                    <i class="fa fa-clock-o"></i> 
+			                    <h2 class="page-header"></h2>
+			                    <div  class=" commentlist ">
+			                    
+				   					<h2 > نبذه عن: #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.name} </h2>
+				             		<div class="">
+				              
+										#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.about}
+				              
+				                	</div>
+				 
+				  				</div>
 			                  </header>
 					
                		
@@ -62,24 +73,15 @@
 				</div>
 				
 				 <div class="col-md-6 likeDislikePart1">
-				 <div  class=" row ">
-				 <div class="  col-md-3"></div>
-				 <div class="  col-md-3">
-				              <h1 class="titleOfUserField">مجال #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.work_fieldId.field}  </h1>
+				 <div  class=" row page-header">
+				 <div class="  col-md-5">
+				              <h1 class="titleOfUserFiel_d" style="text-align: initial;">مجال #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.work_fieldId.field}  </h1>
 				 
 				 </div>
 			       <div class="  col-md-3"></div>
 				  </div>
 				  
-				   <div  class=" comment-list ">
-				   <h2 class="page-header"> نبذه عن: #{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.name} </h2>
-				              <div class="titleOfUserFieldAbout">
-				              
-								#{admin_freelancerBean.selectedUserToBeModified.exfieldUsers.userId.about}
-				              
-				                </div>
-				 
-				  </div>
+				   
 				 <p:panel id="likeDislikeMainForm">
 				  <div  class="comment-list  row ">
 			                    <div class="col-md-3 ">
